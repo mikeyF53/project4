@@ -1,7 +1,6 @@
 import React from 'react';
 
 const LessonPage = props => {
-  console.log(props);
 
   return (
     <div>
