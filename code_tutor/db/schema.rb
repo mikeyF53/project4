@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 2019_04_06_211644) do
 
   create_table "exercises", force: :cascade do |t|
     t.string "title", null: false
-    t.integer "exercise_id"
+    t.integer "lesson_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -25,15 +25,7 @@ ActiveRecord::Schema.define(version: 2019_04_06_211644) do
   create_table "lessons", force: :cascade do |t|
     t.string "title"
     t.string "description"
-    t.integer "lesson_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "progresses", force: :cascade do |t|
-    t.string "title"
-    t.boolean "completion"
-    t.integer "progress_id"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -42,7 +34,6 @@ ActiveRecord::Schema.define(version: 2019_04_06_211644) do
     t.string "name", null: false
     t.string "email", null: false
     t.string "password_digest", null: false
-    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

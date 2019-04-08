@@ -62,6 +62,6 @@ class LessonsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def lesson_params
-      params.fetch(:lesson).permit(:title, :description, :lesson_id)
+      params.fetch(:lesson).permit(:title, :description, :user_id)
     end
 end

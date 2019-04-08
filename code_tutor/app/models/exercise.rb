@@ -1,4 +1,3 @@
 class Exercise < ApplicationRecord
-  belongs_to :lessons
-  has_many :progress
+  belongs_to :lesson
 end

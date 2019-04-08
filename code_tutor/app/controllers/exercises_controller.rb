@@ -24,7 +24,7 @@ class ExercisesController < ApplicationController
   end
 
   def create
-    @lesson = Lesson.find(params(:id))
+    @lesson = Lesson.find(params[:lesson_id])
     @exercise = Exercise.new(exercise_params)
 
     if @exercise.save
@@ -66,6 +66,6 @@ class ExercisesController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def exercise_params
-    params.fetch(:exercise).permit(:title, :exercise_id)
+    params.fetch(:exercise).permit(:title, :lesson_id)
   end
 end
