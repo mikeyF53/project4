@@ -15,6 +15,11 @@ class LessonsController < ApplicationController
   end
 
   # POST /user/user_id/lessons
+  def new
+    @user = User.find(params[:user_id])
+    @lesson = Lesson.new
+  end
+
   def create
     @user = User.find(params[:user_id])
     @lesson = Lesson.new(lesson_params)
@@ -31,7 +36,7 @@ class LessonsController < ApplicationController
     @user = User.find(params[:user_id])
     @lesson = Lesson.find(params[:lesson_id])
   end
-  
+
   def update
     @user = User.find(params[:user_id])
     @lesson = Lesson.find(lesson_params)
