@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import LessonPage from './components/LessonPage'
+import RegisterForm from './components/RegisterForm'
 import { showLessons } from './services/services'
 import './App.css';
 
@@ -20,6 +21,7 @@ class App extends Component {
     return (
       <div className='App'>
         <LessonPage lessons={this.state.lessons}/>
+        <RegisterForm />
       </div>
     );
   }
