@@ -1,18 +1,9 @@
-import React from 'react';
+import React from 'react'
 
-const RegisterForm = props => {
+const LoginForm = (props) => {
   return (
     <div>
-      <h3>Register Form</h3>
-      <form onSubmit={props.handleSubmit}>
-        <input
-          type='text'
-          name='name'
-          placeholder='Name..'
-          id='name'
-          onChange={props.handleChange}
-          value={props.formData.name}
-        />
+      <form onSubmit={props.handleLoginSubmit}>
         <input
           type='text'
           name='email'
@@ -32,7 +23,7 @@ const RegisterForm = props => {
         <input type='submit' value='Submit' />
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default RegisterForm;
+export default LoginForm

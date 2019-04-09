@@ -9,8 +9,8 @@ const createUser = async data => {
 };
 
 //login user
-const loginUser = async data => {
-  const resp = await axios.post(`${BASE_URL}/user_token/`, { "auth": data });
+const loginUser = async loginData => {
+  const resp = await axios.post(`${BASE_URL}/user_token/`, { "auth": loginData });
   return resp.data;
 };
 
@@ -22,11 +22,11 @@ const showLessons = async () => {
 
 //post lesson
 const createLesson = async (data) => {
-  const resp = await axios.post(`${BASE_URL}`, data)
+  const resp = await axios.post(`${BASE_URL}/users/1/lessons`, data)
   return resp.data;
 }
 //show exercises
 
 //post exercise
 
-export { createUser, loginUser, showLessons };
+export { createUser, loginUser, showLessons, createLesson };

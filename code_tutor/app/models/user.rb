@@ -10,7 +10,7 @@ class User < ApplicationRecord
     {
       id: id,
       name: name,
-      email: email
+      email: email  
     }
   end
 end

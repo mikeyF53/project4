@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import LessonPage from './components/LessonPage';
 import LessonForm from './components/LessonForm';
 import RegisterForm from './components/RegisterForm';
-import { showLessons, createUser } from './services/services';
+import LoginForm from './components/LoginForm';
+import { showLessons, createUser, createLesson, loginUser } from './services/services';
 import './App.css';
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
+      isLoggedIn: false,
       lessons: [],
       users: [],
       formData: {
@@ -32,8 +34,7 @@ class App extends Component {
   async componentDidMount() {
     const lessons = await showLessons();
     this.setState({
-      lessons,
-      users
+      lessons
     });
   }
   handleChange(e) {
@@ -42,6 +43,10 @@ class App extends Component {
     this.setState(prevState => ({
       formData: {
         ...prevState.formData,
+        [name]: value
+      },
+      lessonFormData: {
+        ...prevState.lessonFormData,
         [name]: value
       }
     }));
@@ -58,12 +63,49 @@ class App extends Component {
       }
     }));
   }
+  async handleLoginSubmit(e) {
+    e.preventDefault();
+    const loggedUser = await loginUser({
+      email: this.state.formData.email,
+      password: this.state.formData.password
+    });
+    this.setState(prevState => ({
+      loggedIn: [...prevState.loggedIn, loggedUser],
+      formData: {
+        name: '',
+        email: '',
+        password: ''
+      },
+      isLoggedIn: true
+    }));
+  }
+
+  async handleLessonSubmit(e) {
+    e.preventDefault();
+    const newLesson = await createLesson(this.state.lessonFormData);
+    this.setState(prevState => ({
+      lessons: [...prevState.lessons, newLesson],
+      lessonFormData: {
+        title: '',
+        description: ''
+      }
+    }));
+  }
   render() {
     return (
       <div className='App'>
         <LessonPage lessons={this.state.lessons} />
+
         <RegisterForm
           handleSubmit={this.handleSubmit}
+          handleChange={this.handleChange}
+          formData={this.state.formData}
+        />
+        <LessonForm
+          handleChange={this.handleChange}
+          lessonFormData={this.state.lessonFormData}
+        />
+        <LoginForm
           handleChange={this.handleChange}
           formData={this.state.formData}
         />
