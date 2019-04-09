@@ -4,6 +4,7 @@ class User < ApplicationRecord
   has_many :lessons
   has_secure_password
   validates :email, presence: true
+  validates_uniqueness_of :email
 
   def to_token_payload
     {

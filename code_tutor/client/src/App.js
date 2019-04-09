@@ -16,17 +16,24 @@ class App extends Component {
         email: '',
         password: ''
       },
-      title:'',
-      description:''
-
+      lessonFormData: {
+        title: '',
+        description: ''
+      },
+      exerciseFormData: {
+        title: '',
+        snippet: ''
+      }
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleLessonSubmit = this.handleLessonSubmit.bind(this);
   }
   async componentDidMount() {
     const lessons = await showLessons();
     this.setState({
-      lessons
+      lessons,
+      users
     });
   }
   handleChange(e) {
