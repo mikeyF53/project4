@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import LessonPage from './components/LessonPage';
+import LessonForm from './components/LessonForm';
 import RegisterForm from './components/RegisterForm';
 import { showLessons, createUser } from './services/services';
 import './App.css';
@@ -14,7 +15,10 @@ class App extends Component {
         name: '',
         email: '',
         password: ''
-      }
+      },
+      title:'',
+      description:''
+
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);

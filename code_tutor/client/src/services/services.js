@@ -21,7 +21,10 @@ const showLessons = async () => {
 };
 
 //post lesson
-
+const createLesson = async (data) => {
+  const resp = await axios.post(`${BASE_URL}`, data)
+  return resp.data;
+}
 //show exercises
 
 //post exercise
