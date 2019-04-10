@@ -5,18 +5,19 @@ import RegisterForm from './components/RegisterForm';
 import LoginForm from './components/LoginForm';
 import LessonDetail from './components/LessonDetail';
 import ExerciseForm from './components/ExerciseForm';
+import EditLessonForm from './components/EditLessonForm';
 import { withRouter } from 'react-router';
 import decode from 'jwt-decode';
-
+import { Route, Link } from 'react-router-dom';
+import './App.css';
 import {
+  createExercise,
   showLessons,
   createUser,
   createLesson,
   loginUser,
   getLessonExer
 } from './services/services';
-import { Route, Link } from 'react-router-dom';
-import './App.css';
 
 class App extends Component {
   constructor() {
@@ -45,9 +46,11 @@ class App extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleExerciseSubmit = this.handleExerciseSubmit.bind(this);
     this.handleLessonSubmit = this.handleLessonSubmit.bind(this);
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
     this.showLessonExer = this.showLessonExer.bind(this);
+    this.setLessonFormData = this.setLessonFormData.bind(this);
   }
   async componentDidMount() {
     const lessons = await showLessons();
@@ -98,7 +101,7 @@ class App extends Component {
       isLoggedIn: true
     });
     const currentUser = decode(loginData.jwt);
-    localStorage.setItem('jwt', currentUser.id);
+    // localStorage.setItem('jwt', currentUser.id);
     this.setState({
       currentUser
     });
@@ -111,8 +114,6 @@ class App extends Component {
       description: this.state.lessonFormData.description,
       user_id: this.state.currentUser.id
     };
-    console.log(this.state.currentUser.id);
-
     const newLesson = await createLesson(lessonData);
     this.setState(prevState => ({
       lessons: [...prevState.lessons, newLesson]
@@ -124,13 +125,42 @@ class App extends Component {
         description: ''
       }
     });
+    console.log(this.state.lessons);
+  }
+  async handleExerciseSubmit(e) {
+    e.preventDefault();
+    const exerciseData = {
+      title: this.state.lessonFormData.title,
+      snippet: this.state.lessonFormData.snippet,
+      lesson_id: e.target.id
+    };
+    const newExercise = await createExercise(exerciseData);
+    this.setState(prevState => ({
+      exercises: [...prevState.exercises, newExercise]
+    }));
+    this.setState({
+      lessonFormData: {
+        title: '',
+        snippet: ''
+      }
+    });
   }
   async showLessonExer(id) {
     const exercises = await getLessonExer(id);
     this.setState({
       exercises
     });
-    this.props.history.push(`/lesson/details`);
+    // console.log(this.state.lessons.id);
+
+    this.props.history.push(`/lessons/${id}/details`);
+  }
+  setLessonFormData(data) {
+    this.setState({
+      title: data.title,
+      description: data.description,
+      snippet: data.snippet
+    });
+    this.props.history.push(`/lessons/${data.id}/edit`);
   }
 
   render() {
@@ -146,6 +176,7 @@ class App extends Component {
             <LessonPage
               lessons={this.state.lessons}
               showLessonExer={this.showLessonExer}
+              setLessonFormData={this.setLessonFormData}
             />
           )}
         />
@@ -185,14 +216,28 @@ class App extends Component {
         />
         <Route
           exact
-          path='/lesson/details'
+          path='/lessons/:id/details'
           render={props => (
-            <LessonDetail {...props} exercises={this.state.exercises} />
+            <LessonDetail
+            {...props}
+              exercises={this.state.exercises}
+              handleChange={this.handleChange}
+              lessonFormData={this.state.lessonFormData}
+              handleExerciseSubmit={this.handleExerciseSubmit}
+            />
           )}
         />
-        <ExerciseForm
-          handleChange={this.handleChange}
-          lessonFormData={this.state.lessonFormData}
+        <Route
+          exact
+          path='/lessons/:id/edit'
+          render={props => (
+            <EditLessonForm
+              exercises={this.state.exercises}
+              handleChange={this.handleChange}
+              handleEditLessonSubmit={this.handleEditLessonSubmit}
+              lessonFormData={this.state.lessonFormData}
+            />
+          )}
         />
       </div>
     );

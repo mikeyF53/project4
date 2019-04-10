@@ -3,7 +3,7 @@ import React from 'react';
 const RegisterForm = props => {
   return (
     <div>
-      <h3>Register Form</h3>
+      <h4>Register Form</h4>
       <form onSubmit={props.handleSubmit}>
         <input
           type='text'

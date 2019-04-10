@@ -3,7 +3,7 @@ import React from 'react'
 const LoginForm = (props) => {
   return (
     <div>
-      <p>Login Form</p>
+      <h4>Login Form</h4>
       <form onSubmit={props.handleLoginSubmit}>
         <input
           type='text'

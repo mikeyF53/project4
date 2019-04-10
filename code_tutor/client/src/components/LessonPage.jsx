@@ -24,6 +24,14 @@ class LessonPage extends Component {
                 >
                   Lesson Details
                 </button>
+                
+                <input
+                  type='submit'
+                  value='Edit'
+                  onClick={() => {
+                    this.props.setLessonFormData(lesson);
+                  }}
+                />
               </div>
             ))}
         </article>

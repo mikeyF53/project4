@@ -20,9 +20,9 @@ end
 
   # POST /exercises
   def create
+    @lesson = Lesson.find(params[:lesson_id])
     @exercise = Exercise.new(exercise_params)
-
-    if @exercise.save
+    if @lesson.exercises << @exercise
       render json: @exercise, status: :created, location: @exercise
     else
       render json: @exercise.errors, status: :unprocessable_entity
@@ -51,7 +51,7 @@ end
 
     # Only allow a trusted parameter "white list" through.
     def exercise_params
-      params.fetch(:exercise).permit(:title, :lesson_id)
+      params.fetch(:exercise).permit(:title, :snippet, :lesson_id)
     end
   end
   

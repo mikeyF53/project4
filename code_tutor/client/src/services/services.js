@@ -4,7 +4,7 @@ const BASE_URL = 'http://localhost:3000';
 
 //create user/register
 const createUser = async data => {
-  const resp = await axios.post(`${BASE_URL}/users/`, { "user": data });
+  const resp = await axios.post(`${BASE_URL}/users/`, { user: data });
   return resp.data;
 };
 
@@ -19,25 +19,45 @@ const showLessons = async () => {
   const resp = await axios.get(`${BASE_URL}/lessons`);
   return resp.data;
 };
-const getLessonExer = async (id) => {
-  const resp = await axios.get(`${BASE_URL}/lessons/${id}/exercises`)
+const getLessonExer = async id => {
+  const resp = await axios.get(`${BASE_URL}/lessons/${id}/exercises`);
   return resp.data;
-}
+};
 
-//post lesson
-const createLesson = async (data) => {
-  const resp = await axios.post(`${BASE_URL}/users/${data.user_id}/lessons`, data)
+//Create a lesson
+const createLesson = async data => {
+  const resp = await axios.post(
+    `${BASE_URL}/users/${data.user_id}/lessons`,
+    data
+  );
   console.log(data);
-  
   return resp.data;
-}
+};
+//Update/Edit Lesson
+const updateLesson = async data => {
+  const resp = await axios.put(
+    `${BASE_URL}/users/${data.user_id}/lessons/2`,
+    data
+  );
+};
 //show exercises
 
 //post exercise
-const createExercise = async (data) => {
-  const resp = await axios.post(`${BASE_URL}/lessons/lesson_id/exercises`, data)
+const createExercise = async data => {
+  const resp = await axios.post(
+    `${BASE_URL}/lessons/${data.lesson_id}/exercises`,
+    data
+  );
   console.log(data);
-  
+
   return resp.data;
-}
-export { getLessonExer, createUser, loginUser, showLessons, createLesson };
+};
+export {
+  updateLesson,
+  createExercise,
+  getLessonExer,
+  createUser,
+  loginUser,
+  showLessons,
+  createLesson
+};

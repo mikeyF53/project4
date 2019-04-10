@@ -1,10 +1,9 @@
-import React from 'react';
+import React from 'react'
 
-const LessonForm = props => {
+const EditLessonForm = (props) => {
   return (
     <div>
-      <h4>Create Lesson</h4>
-      <form onSubmit={props.handleLessonSubmit}>
+      <form onSubmit={props.handleEditLessonSubmit}>
         <input
           type='text'
           name='title'
@@ -21,11 +20,9 @@ const LessonForm = props => {
           value={props.lessonFormData.description}
           onChange={props.handleChange}
         />
-        <input type='Submit' value='Submit Lesson' />
+        <input type='submit' value='Submit'/>
       </form>
-      {/* onClick={props.handleSubmit} */}
     </div>
-  );
-};
-
-export default LessonForm;
+  )
+}
+export default EditLessonForm
