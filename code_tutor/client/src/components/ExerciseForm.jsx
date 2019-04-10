@@ -7,14 +7,16 @@ const ExerciseForm = (props) => {
       <input 
       type='text'
       name='title'
-      value={}
+      placeholder='Title'
+      value={props.lessonFormData.title}
       onChange={props.handleChange}
       />
 
-      <input 
+      <input
       type='text'
       name='snippet'
-      value={}
+      placeholder='Code Snippet'
+      value={props.lessonFormData.snippet}
       onChange={props.handleChange}
       />
       <input type='Submit'/>

@@ -26,7 +26,7 @@ const getLessonExer = async (id) => {
 
 //post lesson
 const createLesson = async (data) => {
-  const resp = await axios.post(`${BASE_URL}/users/${data.id}/lessons`, data)
+  const resp = await axios.post(`${BASE_URL}/users/${data.user_id}/lessons`, data)
   console.log(data);
   
   return resp.data;
@@ -34,5 +34,10 @@ const createLesson = async (data) => {
 //show exercises
 
 //post exercise
-
+const createExercise = async (data) => {
+  const resp = await axios.post(`${BASE_URL}/lessons/lesson_id/exercises`, data)
+  console.log(data);
+  
+  return resp.data;
+}
 export { getLessonExer, createUser, loginUser, showLessons, createLesson };

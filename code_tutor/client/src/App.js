@@ -4,6 +4,7 @@ import LessonForm from './components/LessonForm';
 import RegisterForm from './components/RegisterForm';
 import LoginForm from './components/LoginForm';
 import LessonDetail from './components/LessonDetail';
+import ExerciseForm from './components/ExerciseForm';
 import { withRouter } from 'react-router';
 import decode from 'jwt-decode';
 
@@ -33,6 +34,8 @@ class App extends Component {
       lessonFormData: {
         title: '',
         description: '',
+        snippet: '',
+        lesson_id: '',
         user_id: ''
       },
       exerciseFormData: {
@@ -85,11 +88,6 @@ class App extends Component {
       password: this.state.formData.password
     });
     console.log(loginData);
-    const currentUser = decode(loginData.jwt);
-    this.setState({
-      currentUser
-    });
-    console.log(this.state.currentUser);
 
     localStorage.setItem('jwt', loginData.jwt);
     this.setState({
@@ -97,21 +95,25 @@ class App extends Component {
         email: '',
         password: ''
       },
-      currentUser: '',
       isLoggedIn: true
     });
+    const currentUser = decode(loginData.jwt);
+    localStorage.setItem('jwt', currentUser.id);
+    this.setState({
+      currentUser
+    });
   }
-  
 
   async handleLessonSubmit(e) {
     e.preventDefault();
-    const data = {
+    const lessonData = {
       title: this.state.lessonFormData.title,
       description: this.state.lessonFormData.description,
-      id: this.state.currentUser.id
+      user_id: this.state.currentUser.id
     };
-    const newLesson = await createLesson(data);
-    console.log(data);
+    console.log(this.state.currentUser.id);
+
+    const newLesson = await createLesson(lessonData);
     this.setState(prevState => ({
       lessons: [...prevState.lessons, newLesson]
     }));
@@ -187,6 +189,10 @@ class App extends Component {
           render={props => (
             <LessonDetail {...props} exercises={this.state.exercises} />
           )}
+        />
+        <ExerciseForm
+          handleChange={this.handleChange}
+          lessonFormData={this.state.lessonFormData}
         />
       </div>
     );

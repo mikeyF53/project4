@@ -4,6 +4,7 @@ const LessonDetail = props => {
   return (
     <div>
       <p>Lesson Details Page</p>
+      <input type='Submit' value='Add Exercise'/>
       {props.exercises &&
         props.exercises.map(exercise => (
           <div>

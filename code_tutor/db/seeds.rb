@@ -12,6 +12,7 @@ Exercise.create(title: 'Map practice', lesson_id: 1, snippet: "{this.props.lesso
     <div key={lesson.id}>
       <h3>{lesson.title}</h3>
       <p>{lesson.description}</p>")
+
 Exercise.create(title: 'Map practice', lesson_id: 2, snippet: "<div>
   <p>Lesson Details Page</p>
   {props.exercises &&
