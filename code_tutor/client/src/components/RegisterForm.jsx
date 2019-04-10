@@ -22,7 +22,7 @@ const RegisterForm = props => {
           value={props.formData.email}
         />
         <input
-          type='text'
+          type='password'
           name='password'
           placeholder='Password..'
           id='password'

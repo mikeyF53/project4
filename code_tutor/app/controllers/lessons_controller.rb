@@ -15,14 +15,22 @@ class LessonsController < ApplicationController
 
   # GET /lessons/1
   def show
-    render json: @lesson
+    render json: @lesson, include: :exercises
   end
 
-  # POST /lessons
-  def create
-    @lesson = Lesson.new(lesson_params)
+  # POST /lessons need to have user_id associated with lesson
 
+  def new
+    @user = User.find(params[:user_id])
+    @lesson = Lesson.new
+  end
+
+  def create
+    @user = User.find(params[:user_id])
+    @lesson = Lesson.new(lesson_params)
+  
     if @lesson.save
+      puts @lesson
       render json: @lesson, status: :created, location: @lesson
     else
       render json: @lesson.errors, status: :unprocessable_entity
@@ -51,7 +59,7 @@ class LessonsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def lesson_params
-      params.fetch(:lesson).permit(:title, :description, :user_id)
+      params.require(:lesson).permit(:title, :description, :user_id)
     end
 end
 

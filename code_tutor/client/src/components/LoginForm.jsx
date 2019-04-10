@@ -3,6 +3,7 @@ import React from 'react'
 const LoginForm = (props) => {
   return (
     <div>
+      <p>Login Form</p>
       <form onSubmit={props.handleLoginSubmit}>
         <input
           type='text'
@@ -13,7 +14,7 @@ const LoginForm = (props) => {
           value={props.formData.email}
         />
         <input
-          type='text'
+          type='password'
           name='password'
           placeholder='Password..'
           id='password'

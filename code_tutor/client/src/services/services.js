@@ -10,7 +10,7 @@ const createUser = async data => {
 
 //login user
 const loginUser = async loginData => {
-  const resp = await axios.post(`${BASE_URL}/user_token/`, { "auth": loginData });
+  const resp = await axios.post(`${BASE_URL}/user_token/`, { auth: loginData });
   return resp.data;
 };
 
@@ -19,14 +19,20 @@ const showLessons = async () => {
   const resp = await axios.get(`${BASE_URL}/lessons`);
   return resp.data;
 };
+const getLessonExer = async (id) => {
+  const resp = await axios.get(`${BASE_URL}/lessons/${id}/exercises`)
+  return resp.data;
+}
 
 //post lesson
 const createLesson = async (data) => {
-  const resp = await axios.post(`${BASE_URL}/users/1/lessons`, data)
+  const resp = await axios.post(`${BASE_URL}/users/${data.id}/lessons`, data)
+  console.log(data);
+  
   return resp.data;
 }
 //show exercises
 
 //post exercise
 
-export { createUser, loginUser, showLessons, createLesson };
+export { getLessonExer, createUser, loginUser, showLessons, createLesson };

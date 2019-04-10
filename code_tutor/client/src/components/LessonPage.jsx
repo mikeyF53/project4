@@ -1,21 +1,34 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { Route, Link } from 'react-router-dom';
 
-const LessonPage = props => {
+class LessonPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
 
-  return (
-    <div>
-      <h2>Lesson Page</h2>
-      <article>
-        {props.lessons &&
-          props.lessons.map(lesson => (
-            <div key={lesson.id}>
-              <p>{lesson.title}</p>
-              <p>{lesson.description}</p>
-            </div>
-          ))}
-      </article>
-    </div>
-  );
-};
-
+  render() {
+    return (
+      <div>
+        <h2>Lessons Page</h2>
+        <article>
+          {this.props.lessons &&
+            this.props.lessons.map(lesson => (
+              <div key={lesson.id}>
+                <h3>{lesson.title}</h3>
+                <p>{lesson.description}</p>
+                <button
+                  onClick={() => {
+                    this.props.showLessonExer(lesson.id);
+                  }}
+                >
+                  Lesson Details
+                </button>
+              </div>
+            ))}
+        </article>
+      </div>
+    );
+  }
+}
 export default LessonPage;

@@ -3,7 +3,7 @@ import React from 'react'
 const ExerciseForm = (props) => {
   return (
     <div>
-      <form onSubmit={props.handleSubmit}>
+      <form onSubmit={props.handleExerciseSubmit}>
       <input 
       type='text'
       name='title'

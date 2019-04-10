@@ -3,10 +3,15 @@ class ExercisesController < ApplicationController
 
   # GET /exercises
   def index
+    if params[:lesson_id]
+      @exercise = Exercise.where(lesson_id: params[:lesson_id])
+      render json: @exercise
+    else
     @exercises = Exercise.all
 
     render json: @exercises
   end
+end
 
   # GET /exercises/1
   def show

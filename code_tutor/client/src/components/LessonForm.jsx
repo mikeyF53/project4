@@ -3,6 +3,7 @@ import React from 'react';
 const LessonForm = props => {
   return (
     <div>
+      <p>Create Lesson</p>
       <form onSubmit={props.handleLessonSubmit}>
         <input
           type='text'
@@ -20,7 +21,7 @@ const LessonForm = props => {
           value={props.lessonFormData.description}
           onChange={props.handleChange}
         />
-        <input type='Submit' value='Submit Lesson' />
+        <input onClick={props.handleSubmit} type='Submit' value='Submit Lesson' />
       </form>
     </div>
   );
