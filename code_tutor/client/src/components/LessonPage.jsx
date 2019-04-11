@@ -19,7 +19,7 @@ class LessonPage extends Component {
                 <p>{lesson.description}</p>
                 <button
                   onClick={() => {
-                    this.props.showLessonExer(lesson.id);
+                    this.props.showLessonExer(lesson);
                   }}
                 >
                   Lesson Details

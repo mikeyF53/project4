@@ -34,16 +34,19 @@ const createLesson = async data => {
   return resp.data;
 };
 //Update/Edit Lesson
-const updateLesson = async data => {
+const updateLesson = async (data, user_id) => {
+  const { lesson_id } = data;
   const resp = await axios.put(
-    `${BASE_URL}/users/${data.user_id}/lessons/2`,
+    `${BASE_URL}/users/${user_id}/lessons/${lesson_id}`,
     data
   );
+
+  return resp.data;
 };
 //show exercises
 
 //post exercise
-const createExercise = async data => {
+const createExercise = async (data) => {
   const resp = await axios.post(
     `${BASE_URL}/lessons/${data.lesson_id}/exercises`,
     data

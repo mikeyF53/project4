@@ -11,6 +11,7 @@ import decode from 'jwt-decode';
 import { Route, Link } from 'react-router-dom';
 import './App.css';
 import {
+  updateLesson,
   createExercise,
   showLessons,
   createUser,
@@ -24,6 +25,7 @@ class App extends Component {
     super();
     this.state = {
       isLoggedIn: false,
+      users: [],
       lessons: [],
       exercises: [],
       currentUser: {},
@@ -51,6 +53,7 @@ class App extends Component {
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
     this.showLessonExer = this.showLessonExer.bind(this);
     this.setLessonFormData = this.setLessonFormData.bind(this);
+    this.handleEditLessonSubmit = this.handleEditLessonSubmit.bind(this);
   }
   async componentDidMount() {
     const lessons = await showLessons();
@@ -106,6 +109,21 @@ class App extends Component {
       currentUser
     });
   }
+  async handleEditLessonSubmit(e) {
+    e.preventDefault();
+    const editLesson = await updateLesson(
+      this.state.lessonFormData,
+      this.state.currentUser.id
+    );
+    this.setState(prevState => ({
+      lessons: [
+        ...prevState.lessons.filter(lesson => lesson.id !== prevState.id),
+        editLesson
+      ]
+    }));
+    this.props.history.push(`/`);
+    await showLessons();
+  }
 
   async handleLessonSubmit(e) {
     e.preventDefault();
@@ -128,11 +146,12 @@ class App extends Component {
     console.log(this.state.lessons);
   }
   async handleExerciseSubmit(e) {
+    
     e.preventDefault();
     const exerciseData = {
       title: this.state.lessonFormData.title,
       snippet: this.state.lessonFormData.snippet,
-      lesson_id: e.target.id
+      lesson_id: this.state.lessonFormData.lesson_id
     };
     const newExercise = await createExercise(exerciseData);
     this.setState(prevState => ({
@@ -144,21 +163,28 @@ class App extends Component {
         snippet: ''
       }
     });
+    this.props.history.push(`/lessons/:id/details`)
   }
-  async showLessonExer(id) {
-    const exercises = await getLessonExer(id);
+  async showLessonExer(lesson) {
+    const exercises = await getLessonExer(lesson.id);
     this.setState({
-      exercises
+      exercises,
+      lessonFormData: {
+        lesson_id: lesson.id
+      }
     });
     // console.log(this.state.lessons.id);
 
-    this.props.history.push(`/lessons/${id}/details`);
+    this.props.history.push(`/lessons/${lesson.id}/details`);
   }
   setLessonFormData(data) {
     this.setState({
-      title: data.title,
-      description: data.description,
-      snippet: data.snippet
+      lessonFormData: {
+        title: data.title,
+        description: data.description,
+        snippet: data.snippet,
+        lesson_id: data.id
+      }
     });
     this.props.history.push(`/lessons/${data.id}/edit`);
   }
@@ -169,6 +195,7 @@ class App extends Component {
         <Link to='/'>Lessons Page</Link>
         <Link to='/register'>Sign up</Link>
         <Link to='/login'>Login</Link>
+        <Link to='/createlesson'>Create a Lesson</Link>
         <Route
           exact
           path='/'
@@ -184,7 +211,9 @@ class App extends Component {
           exact
           path='/register'
           render={props => (
+           
             <RegisterForm
+            
               handleSubmit={this.handleSubmit}
               handleChange={this.handleChange}
               formData={this.state.formData}
@@ -202,7 +231,7 @@ class App extends Component {
             />
           )}
         />
-        <Link to='/createlesson'>Create a Lesson</Link>
+
         <Route
           exact
           path='/createlesson'
@@ -219,7 +248,7 @@ class App extends Component {
           path='/lessons/:id/details'
           render={props => (
             <LessonDetail
-            {...props}
+              {...props}
               exercises={this.state.exercises}
               handleChange={this.handleChange}
               lessonFormData={this.state.lessonFormData}
@@ -232,10 +261,26 @@ class App extends Component {
           path='/lessons/:id/edit'
           render={props => (
             <EditLessonForm
+              title={this.state.lessonFormData.title}
+              description={this.state.lessonFormData.description}
               exercises={this.state.exercises}
               handleChange={this.handleChange}
               handleEditLessonSubmit={this.handleEditLessonSubmit}
               lessonFormData={this.state.lessonFormData}
+            />
+          )}
+        />
+        
+        <Route
+          exact
+          path='/newexercise'
+          render={(props) => (
+            <ExerciseForm
+              {...props}
+              handleExerciseSubmit={this.handleExerciseSubmit}
+              lessonFormData={this.state.lessonFormData}
+              handleChange={this.handleChange}
+              id={this.props.match.params.id}
             />
           )}
         />
