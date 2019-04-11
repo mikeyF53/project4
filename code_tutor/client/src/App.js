@@ -32,6 +32,7 @@ class App extends Component {
       users: [],
       lessons: [],
       exercises: [],
+      
       currentUser: {},
       formData: {
         name: '',
@@ -44,25 +45,25 @@ class App extends Component {
         snippet: '',
         lesson_id: '',
         user_id: '',
-        exercise_id: '',
+        exercise_id: ''
       },
       exerciseFormData: {
         title: '',
         snippet: ''
       }
     };
-    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleExerciseSubmit = this.handleExerciseSubmit.bind(this);
-    this.handleLessonSubmit = this.handleLessonSubmit.bind(this);
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.showLessonExer = this.showLessonExer.bind(this);
     this.setLessonFormData = this.setLessonFormData.bind(this);
     this.setExerFormData = this.setExerFormData.bind(this);
-
+    this.handleLessonSubmit = this.handleLessonSubmit.bind(this);
     this.handleEditLessonSubmit = this.handleEditLessonSubmit.bind(this);
-    this.handleEditExerciseSubmit = this.handleEditExerciseSubmit.bind(this);
     this.handleDeleteLesson = this.handleDeleteLesson.bind(this);
+    this.handleExerciseSubmit = this.handleExerciseSubmit.bind(this);
+    this.handleEditExerciseSubmit = this.handleEditExerciseSubmit.bind(this);
+    this.handleDeleteExer = this.handleDeleteExer.bind(this)
   }
   async componentDidMount() {
     const lessons = await showLessons();
@@ -132,6 +133,7 @@ class App extends Component {
     }));
     this.props.history.push(`/`);
     await showLessons();
+    {window.location.reload();}
   }
 
   async handleLessonSubmit(e) {
@@ -145,13 +147,13 @@ class App extends Component {
     this.setState(prevState => ({
       lessons: [...prevState.lessons, newLesson]
     }));
-
     this.setState({
       lessonFormData: {
         title: '',
         description: ''
       }
     });
+    this.props.history.push(`/`);
     console.log(this.state.lessons);
   }
   async handleExerciseSubmit(e) {
@@ -169,10 +171,11 @@ class App extends Component {
     this.setState({
       lessonFormData: {
         title: '',
-        snippet: ''
+        snippet: '',
+        lesson_id: this.state.lessonFormData.lesson_id
       }
     });
-    this.props.history.push(`/lessons/${exerciseData.lesson_id}/newexercise`);
+    this.props.history.push(`/lessons/${exerciseData.lesson_id}/details`);
   }
   async showLessonExer(lesson) {
     const exercises = await getLessonExer(lesson.id);
@@ -212,8 +215,9 @@ class App extends Component {
         snippet: data.snippet,
         lesson_id: data.lesson_id,
         exercise_id: data.id
-      }
+      },
     });
+    console.log(data.lesson_id)
     this.props.history.push(
       `/lessons/${data.lesson_id}/exercises/${data.id}/edit`
     );
@@ -227,12 +231,22 @@ class App extends Component {
   async handleEditExerciseSubmit(e) {
     e.preventDefault();
     const editExercise = await updateExercise(this.state.lessonFormData);
+    console.log(this.state.lessonFormData.lesson_id);
+
     this.setState(prevState => ({
       exercises: [
         ...prevState.exercises.filter(exercise => exercise.id !== prevState.id),
         editExercise
       ]
     }));
+    // this.props.history.push(`/lessons/${this.state.lessonFormData.lesson_id}/details`)
+  }
+  async handleDeleteExer(lesson_id, exercise_id) {
+    await deleteExercise(lesson_id, exercise_id)
+    this.setState(prevState => ({
+      exercises: prevState.exercises.filter(exercise => exercise.id !== exercise_id)
+    }));
+    
   }
 
   render() {
@@ -296,6 +310,7 @@ class App extends Component {
               {...props}
               exercises={this.state.exercises}
               handleChange={this.handleChange}
+              handleDeleteExer={this.handleDeleteExer}
               lessonFormData={this.state.lessonFormData}
               handleExerciseSubmit={this.handleExerciseSubmit}
               setExerFormData={this.setExerFormData}

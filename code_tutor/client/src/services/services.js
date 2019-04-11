@@ -42,7 +42,9 @@ const updateLesson = async (data, user_id) => {
 
 //delete lesson
 const deleteLesson = async (user_id, lesson_id) => {
-  const resp = await axios.delete(`${BASE_URL}/users/${user_id}/lessons/${lesson_id}`);
+  const resp = await axios.delete(
+    `${BASE_URL}/users/${user_id}/lessons/${lesson_id}`
+  );
   return resp.data;
 };
 
@@ -61,13 +63,18 @@ const createExercise = async data => {
   return resp.data;
 };
 //edit/update exercise
-const updateExercise = async (data) => {
-  const resp = await axios.put(`${BASE_URL}/lessons/${data.lesson_id}/exercises/${data.exercise_id}`, data)
-}
+const updateExercise = async data => {
+  const resp = await axios.put(
+    `${BASE_URL}/lessons/${data.lesson_id}/exercises/${data.exercise_id}`,
+    data
+  );
+};
 
 //delete exercise
-const deleteExercise = async id => {
-  const resp = await axios.delete(id);
+const deleteExercise = async (lesson_id, exercise_id) => {
+  const resp = await axios.delete(
+    `${BASE_URL}/lessons/${lesson_id}/exercises/${exercise_id}`
+  );
   return resp.data;
 };
 export {

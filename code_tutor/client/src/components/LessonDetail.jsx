@@ -14,11 +14,21 @@ const LessonDetail = props => {
           <div key={exercise.id}>
             <h3>{exercise.title}</h3>
             <div>{exercise.snippet}</div>
+            {/* Edit exercise */}
             <input
                   type='submit'
                   value='Edit Exercise'
                   onClick={() => {
                     props.setExerFormData(exercise);
+                  }}
+                />
+                {/* Delete exercise */}
+                <input
+                  type='submit'
+                  value='Delete Exercise'
+                  onClick={(e) => {
+                    e.preventDefault();
+                    props.handleDeleteExer(exercise.lesson_id, exercise.id);
                   }}
                 />
           </div>
