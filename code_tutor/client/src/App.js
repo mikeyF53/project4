@@ -11,7 +11,6 @@ import decode from 'jwt-decode';
 import { Route, Link } from 'react-router-dom';
 import './App.css';
 import {
-
   deleteLesson,
   updateLesson,
   createExercise,
@@ -57,6 +56,7 @@ class App extends Component {
     this.showLessonExer = this.showLessonExer.bind(this);
     this.setLessonFormData = this.setLessonFormData.bind(this);
     this.handleEditLessonSubmit = this.handleEditLessonSubmit.bind(this);
+    this.handleDeleteLesson = this.handleDeleteLesson.bind(this);
   }
   async componentDidMount() {
     const lessons = await showLessons();
@@ -149,7 +149,6 @@ class App extends Component {
     console.log(this.state.lessons);
   }
   async handleExerciseSubmit(e) {
-    
     e.preventDefault();
     const exerciseData = {
       title: this.state.lessonFormData.title,
@@ -166,7 +165,7 @@ class App extends Component {
         snippet: ''
       }
     });
-    this.props.history.push(`/lessons/:id/details`)
+    this.props.history.push(`/lessons/:id/details`);
   }
   async showLessonExer(lesson) {
     const exercises = await getLessonExer(lesson.id);
@@ -176,7 +175,6 @@ class App extends Component {
         lesson_id: lesson.id
       }
     });
-    // console.log(this.state.lessons.id);
 
     this.props.history.push(`/lessons/${lesson.id}/details`);
   }
@@ -190,6 +188,11 @@ class App extends Component {
       }
     });
     this.props.history.push(`/lessons/${data.id}/edit`);
+  }
+  async handleDeleteLesson(user_id, id) {
+    await deleteLesson(user_id,id);
+    this.setState(prevState => ({
+      lessons: prevState.lessons.filter(lesson => lesson.id !== id)}));
   }
 
   render() {
@@ -205,6 +208,7 @@ class App extends Component {
           render={props => (
             <LessonPage
               lessons={this.state.lessons}
+              handleDeleteLesson={this.handleDeleteLesson}
               showLessonExer={this.showLessonExer}
               setLessonFormData={this.setLessonFormData}
             />
@@ -214,9 +218,7 @@ class App extends Component {
           exact
           path='/register'
           render={props => (
-           
             <RegisterForm
-            
               handleSubmit={this.handleSubmit}
               handleChange={this.handleChange}
               formData={this.state.formData}
@@ -273,11 +275,11 @@ class App extends Component {
             />
           )}
         />
-        
+
         <Route
           exact
           path='/newexercise'
-          render={(props) => (
+          render={props => (
             <ExerciseForm
               {...props}
               handleExerciseSubmit={this.handleExerciseSubmit}

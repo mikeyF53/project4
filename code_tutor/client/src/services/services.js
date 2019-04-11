@@ -42,7 +42,7 @@ const updateLesson = async (data, user_id) => {
 
 //delete lesson
 const deleteLesson = async (user_id, lesson_id) => {
-  const resp = await axios.delete(`${BASE_URL}/users/${user_id}lessons/${lesson_id}`);
+  const resp = await axios.delete(`${BASE_URL}/users/${user_id}/lessons/${lesson_id}`);
   return resp.data;
 };
 

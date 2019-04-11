@@ -8,6 +8,8 @@ class LessonPage extends Component {
   }
 
   render() {
+    console.log(this.props.lessons);
+
     return (
       <div>
         <h2>Lessons Page</h2>
@@ -16,14 +18,27 @@ class LessonPage extends Component {
             this.props.lessons.map(lesson => (
               <div key={lesson.id}>
                 <h3>Lesson: {lesson.title}</h3>
-              <input
+
+                {/* Edit Lesson Button */}
+                <input
                   type='submit'
                   value='Edit Lesson'
                   onClick={() => {
                     this.props.setLessonFormData(lesson);
                   }}
                 />
+                {/* Delete Lesson Button*/}
+                <input 
+                type='submit' 
+                value='Delete Lesson'
+                onClick={e => {
+                  e.preventDefault();
+                  this.props.handleDeleteLesson(lesson.user_id, lesson.id,)
+                }} />
+
                 <p>Description: {lesson.description}</p>
+
+                {/* Show Exercises */}
                 <button
                   onClick={() => {
                     this.props.showLessonExer(lesson);
@@ -31,8 +46,6 @@ class LessonPage extends Component {
                 >
                   Exercises
                 </button>
-                
-                
               </div>
             ))}
         </article>
