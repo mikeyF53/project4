@@ -15,23 +15,24 @@ class LessonPage extends Component {
           {this.props.lessons &&
             this.props.lessons.map(lesson => (
               <div key={lesson.id}>
-                <h3>{lesson.title}</h3>
-                <p>{lesson.description}</p>
+                <h3>Lesson: {lesson.title}</h3>
+              <input
+                  type='submit'
+                  value='Edit Lesson'
+                  onClick={() => {
+                    this.props.setLessonFormData(lesson);
+                  }}
+                />
+                <p>Description: {lesson.description}</p>
                 <button
                   onClick={() => {
                     this.props.showLessonExer(lesson);
                   }}
                 >
-                  Lesson Details
+                  Exercises
                 </button>
                 
-                <input
-                  type='submit'
-                  value='Edit'
-                  onClick={() => {
-                    this.props.setLessonFormData(lesson);
-                  }}
-                />
+                
               </div>
             ))}
         </article>

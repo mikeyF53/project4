@@ -19,10 +19,6 @@ const showLessons = async () => {
   const resp = await axios.get(`${BASE_URL}/lessons`);
   return resp.data;
 };
-const getLessonExer = async id => {
-  const resp = await axios.get(`${BASE_URL}/lessons/${id}/exercises`);
-  return resp.data;
-};
 
 //Create a lesson
 const createLesson = async data => {
@@ -33,6 +29,7 @@ const createLesson = async data => {
   console.log(data);
   return resp.data;
 };
+
 //Update/Edit Lesson
 const updateLesson = async (data, user_id) => {
   const { lesson_id } = data;
@@ -40,19 +37,33 @@ const updateLesson = async (data, user_id) => {
     `${BASE_URL}/users/${user_id}/lessons/${lesson_id}`,
     data
   );
-
   return resp.data;
 };
-//show exercises
+
+//delete lesson
+const deleteLesson = async (user_id, lesson_id) => {
+  const resp = await axios.delete(`${BASE_URL}/users/${user_id}lessons/${lesson_id}`);
+  return resp.data;
+};
+
+//show all exercises for lesson
+const getLessonExer = async id => {
+  const resp = await axios.get(`${BASE_URL}/lessons/${id}/exercises`);
+  return resp.data;
+};
 
 //post exercise
-const createExercise = async (data) => {
+const createExercise = async data => {
   const resp = await axios.post(
     `${BASE_URL}/lessons/${data.lesson_id}/exercises`,
     data
   );
-  console.log(data);
+  return resp.data;
+};
 
+//delete exercise
+const deleteExercise = async id => {
+  const resp = await axios.delete(id);
   return resp.data;
 };
 export {
@@ -62,5 +73,7 @@ export {
   createUser,
   loginUser,
   showLessons,
-  createLesson
+  createLesson,
+  deleteLesson,
+  deleteExercise
 };

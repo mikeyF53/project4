@@ -11,8 +11,11 @@ import decode from 'jwt-decode';
 import { Route, Link } from 'react-router-dom';
 import './App.css';
 import {
+
+  deleteLesson,
   updateLesson,
   createExercise,
+  deleteExercise,
   showLessons,
   createUser,
   createLesson,
