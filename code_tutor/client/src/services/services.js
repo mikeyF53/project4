@@ -62,7 +62,7 @@ const createExercise = async data => {
 };
 //edit/update exercise
 const updateExercise = async (data) => {
-  const resp = await axios.put(`${BASE_URL}/lessons/${data.lesson_id}/exercise/${data.id}`, data)
+  const resp = await axios.put(`${BASE_URL}/lessons/${data.lesson_id}/exercises/${data.exercise_id}`, data)
 }
 
 //delete exercise
@@ -79,5 +79,6 @@ export {
   showLessons,
   createLesson,
   deleteLesson,
-  deleteExercise
+  deleteExercise,
+  updateExercise
 };

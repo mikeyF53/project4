@@ -3,6 +3,7 @@ import { Route, Link } from 'react-router-dom';
 import ExerciseForm from './ExerciseForm';
 
 const LessonDetail = props => {
+  console.log(props.exercises);
   
   return (
     <div>
@@ -13,7 +14,15 @@ const LessonDetail = props => {
           <div key={exercise.id}>
             <h3>{exercise.title}</h3>
             <div>{exercise.snippet}</div>
+            <input
+                  type='submit'
+                  value='Edit Exercise'
+                  onClick={() => {
+                    props.setExerFormData(exercise);
+                  }}
+                />
           </div>
+          
         ))}
 
       <Link to={`/lessons/${props.match.params.id}/newexercise`}>

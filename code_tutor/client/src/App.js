@@ -6,11 +6,13 @@ import LoginForm from './components/LoginForm';
 import LessonDetail from './components/LessonDetail';
 import ExerciseForm from './components/ExerciseForm';
 import EditLessonForm from './components/EditLessonForm';
+import EditExerciseForm from './components/EditExerciseForm';
 import { withRouter } from 'react-router';
 import decode from 'jwt-decode';
 import { Route, Link } from 'react-router-dom';
 import './App.css';
 import {
+  updateExercise,
   deleteLesson,
   updateLesson,
   createExercise,
@@ -41,7 +43,8 @@ class App extends Component {
         description: '',
         snippet: '',
         lesson_id: '',
-        user_id: ''
+        user_id: '',
+        exercise_id: '',
       },
       exerciseFormData: {
         title: '',
@@ -55,7 +58,10 @@ class App extends Component {
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
     this.showLessonExer = this.showLessonExer.bind(this);
     this.setLessonFormData = this.setLessonFormData.bind(this);
+    this.setExerFormData = this.setExerFormData.bind(this);
+
     this.handleEditLessonSubmit = this.handleEditLessonSubmit.bind(this);
+    this.handleEditExerciseSubmit = this.handleEditExerciseSubmit.bind(this);
     this.handleDeleteLesson = this.handleDeleteLesson.bind(this);
   }
   async componentDidMount() {
@@ -155,6 +161,7 @@ class App extends Component {
       snippet: this.state.lessonFormData.snippet,
       lesson_id: this.state.lessonFormData.lesson_id
     };
+
     const newExercise = await createExercise(exerciseData);
     this.setState(prevState => ({
       exercises: [...prevState.exercises, newExercise]
@@ -165,9 +172,7 @@ class App extends Component {
         snippet: ''
       }
     });
-    // const id = this.state.match.params.id
-    const id = this.state.lessonFormData.lesson_id
-    this.props.history.push(`/lessons/${id}/newexercise`);
+    this.props.history.push(`/lessons/${exerciseData.lesson_id}/newexercise`);
   }
   async showLessonExer(lesson) {
     const exercises = await getLessonExer(lesson.id);
@@ -191,10 +196,43 @@ class App extends Component {
     });
     this.props.history.push(`/lessons/${data.id}/edit`);
   }
+  // setExerFormData(data) {
+  //   this.setState({
+  //     title: data.title,
+  //     snippet: data.snippet,
+  //     lesson_id: data.lesson_id
+  //   });
+  //   this.props.history.push(`/lessons/${data.lesson_id}/exercise/${data.id}/edit`);
+  // }
+  setExerFormData(data) {
+    this.setState({
+      lessonFormData: {
+        title: data.title,
+        description: data.description,
+        snippet: data.snippet,
+        lesson_id: data.lesson_id,
+        exercise_id: data.id
+      }
+    });
+    this.props.history.push(
+      `/lessons/${data.lesson_id}/exercises/${data.id}/edit`
+    );
+  }
   async handleDeleteLesson(user_id, id) {
-    await deleteLesson(user_id,id);
+    await deleteLesson(user_id, id);
     this.setState(prevState => ({
-      lessons: prevState.lessons.filter(lesson => lesson.id !== id)}));
+      lessons: prevState.lessons.filter(lesson => lesson.id !== id)
+    }));
+  }
+  async handleEditExerciseSubmit(e) {
+    e.preventDefault();
+    const editExercise = await updateExercise(this.state.lessonFormData);
+    this.setState(prevState => ({
+      exercises: [
+        ...prevState.exercises.filter(exercise => exercise.id !== prevState.id),
+        editExercise
+      ]
+    }));
   }
 
   render() {
@@ -203,7 +241,7 @@ class App extends Component {
         <Link to='/'>Lessons Page</Link>
         <Link to='/register'>Sign up</Link>
         <Link to='/login'>Login</Link>
-        
+
         <Route
           exact
           path='/'
@@ -260,6 +298,7 @@ class App extends Component {
               handleChange={this.handleChange}
               lessonFormData={this.state.lessonFormData}
               handleExerciseSubmit={this.handleExerciseSubmit}
+              setExerFormData={this.setExerFormData}
               id={this.props.match.params.id}
             />
           )}
@@ -288,7 +327,18 @@ class App extends Component {
               handleExerciseSubmit={this.handleExerciseSubmit}
               lessonFormData={this.state.lessonFormData}
               handleChange={this.handleChange}
-              
+            />
+          )}
+        />
+        <Route
+          exact
+          path='/lessons/:id/exercises/:id/edit'
+          render={props => (
+            <EditExerciseForm
+              {...props}
+              handleEditExerciseSubmit={this.handleEditExerciseSubmit}
+              lessonFormData={this.state.lessonFormData}
+              handleChange={this.handleChange}
             />
           )}
         />

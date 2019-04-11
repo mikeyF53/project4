@@ -31,6 +31,7 @@ end
 
   # PATCH/PUT /exercises/1
   def update
+    @lesson = Lesson.find(params[:lesson_id])
     if @exercise.update(exercise_params)
       render json: @exercise
     else
@@ -51,7 +52,7 @@ end
 
     # Only allow a trusted parameter "white list" through.
     def exercise_params
-      params.fetch(:exercise).permit(:title, :snippet, :lesson_id)
+      params.require(:exercise).permit(:title, :snippet, :lesson_id)
     end
   end
   
