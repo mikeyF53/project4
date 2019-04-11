@@ -13,6 +13,7 @@ class LessonPage extends Component {
     return (
       <div>
         <h2>Lessons Page</h2>
+        <Link to='/createlesson'><button>Create a Lesson</button></Link>
         <article>
           {this.props.lessons &&
             this.props.lessons.map(lesson => (

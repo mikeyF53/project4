@@ -165,7 +165,9 @@ class App extends Component {
         snippet: ''
       }
     });
-    this.props.history.push(`/lessons/:id/details`);
+    // const id = this.state.match.params.id
+    const id = this.state.lessonFormData.lesson_id
+    this.props.history.push(`/lessons/${id}/newexercise`);
   }
   async showLessonExer(lesson) {
     const exercises = await getLessonExer(lesson.id);
@@ -201,7 +203,7 @@ class App extends Component {
         <Link to='/'>Lessons Page</Link>
         <Link to='/register'>Sign up</Link>
         <Link to='/login'>Login</Link>
-        <Link to='/createlesson'>Create a Lesson</Link>
+        
         <Route
           exact
           path='/'
@@ -258,6 +260,7 @@ class App extends Component {
               handleChange={this.handleChange}
               lessonFormData={this.state.lessonFormData}
               handleExerciseSubmit={this.handleExerciseSubmit}
+              id={this.props.match.params.id}
             />
           )}
         />
@@ -278,14 +281,14 @@ class App extends Component {
 
         <Route
           exact
-          path='/newexercise'
+          path='/lessons/:id/newexercise'
           render={props => (
             <ExerciseForm
               {...props}
               handleExerciseSubmit={this.handleExerciseSubmit}
               lessonFormData={this.state.lessonFormData}
               handleChange={this.handleChange}
-              id={this.props.match.params.id}
+              
             />
           )}
         />
