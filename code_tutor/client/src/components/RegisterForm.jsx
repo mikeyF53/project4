@@ -4,7 +4,7 @@ const RegisterForm = props => {
   return (
     <div>
       <h4>Register Form</h4>
-      <form onSubmit={props.handleSubmit}>
+      <form onSubmit={props.handleRegisterSubmit}>
         <input
           type='text'
           name='name'

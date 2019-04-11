@@ -13,7 +13,7 @@ const ExerciseForm = props => {
           onChange={props.handleChange}
         />
 
-        <input
+        <textarea
           type='text'
           name='snippet'
           placeholder='Code Snippet'

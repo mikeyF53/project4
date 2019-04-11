@@ -7,6 +7,7 @@ import LessonDetail from './components/LessonDetail';
 import ExerciseForm from './components/ExerciseForm';
 import EditLessonForm from './components/EditLessonForm';
 import EditExerciseForm from './components/EditExerciseForm';
+import ExercisePage from './components/ExercisePage';
 import { withRouter } from 'react-router';
 import decode from 'jwt-decode';
 import { Route, Link } from 'react-router-dom';
@@ -32,7 +33,7 @@ class App extends Component {
       users: [],
       lessons: [],
       exercises: [],
-      
+
       currentUser: {},
       formData: {
         name: '',
@@ -52,7 +53,7 @@ class App extends Component {
         snippet: ''
       }
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleRegisterSubmit = this.handleRegisterSubmit.bind(this);
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.showLessonExer = this.showLessonExer.bind(this);
@@ -63,7 +64,9 @@ class App extends Component {
     this.handleDeleteLesson = this.handleDeleteLesson.bind(this);
     this.handleExerciseSubmit = this.handleExerciseSubmit.bind(this);
     this.handleEditExerciseSubmit = this.handleEditExerciseSubmit.bind(this);
-    this.handleDeleteExer = this.handleDeleteExer.bind(this)
+    this.handleDeleteExer = this.handleDeleteExer.bind(this);
+    this.loadExercise = this.loadExercise.bind(this);
+    this.finishExercise = this.finishExercise.bind(this);
   }
   async componentDidMount() {
     const lessons = await showLessons();
@@ -85,7 +88,7 @@ class App extends Component {
       }
     }));
   }
-  async handleSubmit(e) {
+  async handleRegisterSubmit(e) {
     e.preventDefault();
     const newUser = await createUser(this.state.formData);
     this.setState(prevState => ({
@@ -96,6 +99,7 @@ class App extends Component {
         password: ''
       }
     }));
+    this.props.history.push('/');
   }
   async handleLoginSubmit(e) {
     e.preventDefault();
@@ -118,7 +122,9 @@ class App extends Component {
     this.setState({
       currentUser
     });
+    this.props.history.push('/');
   }
+
   async handleEditLessonSubmit(e) {
     e.preventDefault();
     const editLesson = await updateLesson(
@@ -133,7 +139,9 @@ class App extends Component {
     }));
     this.props.history.push(`/`);
     await showLessons();
-    {window.location.reload();}
+    {
+      window.location.reload();
+    }
   }
 
   async handleLessonSubmit(e) {
@@ -215,9 +223,9 @@ class App extends Component {
         snippet: data.snippet,
         lesson_id: data.lesson_id,
         exercise_id: data.id
-      },
+      }
     });
-    console.log(data.lesson_id)
+    console.log(data.lesson_id);
     this.props.history.push(
       `/lessons/${data.lesson_id}/exercises/${data.id}/edit`
     );
@@ -242,11 +250,27 @@ class App extends Component {
     // this.props.history.push(`/lessons/${this.state.lessonFormData.lesson_id}/details`)
   }
   async handleDeleteExer(lesson_id, exercise_id) {
-    await deleteExercise(lesson_id, exercise_id)
+    await deleteExercise(lesson_id, exercise_id);
     this.setState(prevState => ({
-      exercises: prevState.exercises.filter(exercise => exercise.id !== exercise_id)
+      exercises: prevState.exercises.filter(
+        exercise => exercise.id !== exercise_id
+      )
     }));
-    
+  }
+  loadExercise(exercise) {
+    this.setState({
+      exerciseFormData: {
+        snippet: exercise
+      }
+    });
+    this.props.history.push(`/exercise/${exercise.id}`)
+  }
+  finishExercise() {
+    this.setState({
+      exerciseFormData: {
+        snippet: ''
+      }
+    });
   }
 
   render() {
@@ -273,7 +297,7 @@ class App extends Component {
           path='/register'
           render={props => (
             <RegisterForm
-              handleSubmit={this.handleSubmit}
+              handleRegisterSubmit={this.handleRegisterSubmit}
               handleChange={this.handleChange}
               formData={this.state.formData}
             />
@@ -314,6 +338,7 @@ class App extends Component {
               lessonFormData={this.state.lessonFormData}
               handleExerciseSubmit={this.handleExerciseSubmit}
               setExerFormData={this.setExerFormData}
+              loadExercise={this.loadExercise}
               id={this.props.match.params.id}
             />
           )}
@@ -354,6 +379,17 @@ class App extends Component {
               handleEditExerciseSubmit={this.handleEditExerciseSubmit}
               lessonFormData={this.state.lessonFormData}
               handleChange={this.handleChange}
+            />
+          )}
+        />
+        <Route
+          exact
+          path='/exercise/:id'
+          render={props => (
+            <ExercisePage
+            {...props}
+              finishExercise={this.finishExercise}
+              exerciseFormData={this.state.exerciseFormData.snippet}
             />
           )}
         />
