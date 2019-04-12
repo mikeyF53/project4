@@ -8,6 +8,8 @@ import ExerciseForm from './components/ExerciseForm';
 import EditLessonForm from './components/EditLessonForm';
 import EditExerciseForm from './components/EditExerciseForm';
 import ExercisePage from './components/ExercisePage';
+import Nav from './components/Nav';
+
 import { withRouter } from 'react-router';
 import decode from 'jwt-decode';
 import { Route, Link } from 'react-router-dom';
@@ -67,6 +69,8 @@ class App extends Component {
     this.handleDeleteExer = this.handleDeleteExer.bind(this);
     this.loadExercise = this.loadExercise.bind(this);
     this.finishExercise = this.finishExercise.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
+    this.onKeyPress = this.onKeyPress.bind(this);
   }
   async componentDidMount() {
     const lessons = await showLessons();
@@ -107,22 +111,31 @@ class App extends Component {
       email: this.state.formData.email,
       password: this.state.formData.password
     });
-    console.log(loginData);
-
+    // console.log(loginData);
     localStorage.setItem('jwt', loginData.jwt);
     this.setState({
       formData: {
         email: '',
         password: ''
-      },
-      isLoggedIn: true
+      }
+      // isLoggedIn: true
     });
     const currentUser = decode(loginData.jwt);
-    // localStorage.setItem('jwt', currentUser.id);
+    // localStorage.setItem('user_id', currentUser.id);
     this.setState({
-      currentUser
+      currentUser,
+      isLoggedIn: true
     });
     this.props.history.push('/');
+  }
+  handleLogout(e) {
+    e.preventDefault();
+    console.log('User has been logged out');
+    localStorage.removeItem('jwt');
+    this.setState({
+      isLoggedIn: false
+    });
+    this.props.history.push('/login');
   }
 
   async handleEditLessonSubmit(e) {
@@ -236,10 +249,10 @@ class App extends Component {
       lessons: prevState.lessons.filter(lesson => lesson.id !== id)
     }));
   }
+  // Need to fix
   async handleEditExerciseSubmit(e) {
     e.preventDefault();
     const editExercise = await updateExercise(this.state.lessonFormData);
-    console.log(this.state.lessonFormData.lesson_id);
 
     this.setState(prevState => ({
       exercises: [
@@ -247,7 +260,8 @@ class App extends Component {
         editExercise
       ]
     }));
-    // this.props.history.push(`/lessons/${this.state.lessonFormData.lesson_id}/details`)
+    // const id = this.state.lessonFormData.lesson_id
+    //  this.props.history.push(`/lessons/${id}/details`)
   }
   async handleDeleteExer(lesson_id, exercise_id) {
     await deleteExercise(lesson_id, exercise_id);
@@ -257,13 +271,33 @@ class App extends Component {
       )
     }));
   }
+  //splits snippet to an array on exercise load
   loadExercise(exercise) {
+    const exerciseArray = exercise.snippet.split('');
     this.setState({
       exerciseFormData: {
-        snippet: exercise
+        snippet: exerciseArray
       }
     });
-    this.props.history.push(`/exercise/${exercise.id}`)
+    this.props.history.push(`/exercise/${exercise.id}`);
+  }
+//key press listener
+  onKeyPress(e) {
+    let snippetArr = this.state.exerciseFormData.snippet;
+    let counter = 0;
+    let key = e.key;
+    console.log(key);
+    
+    if (counter == snippetArr.length) {
+      e.preventDefault();
+    } else if (key == snippetArr[counter]) {
+      counter++;
+      if (counter == snippetArr.length) {
+        console.log('Exercise Complete');
+      }
+    } else {
+      e.preventDefault();
+    }
   }
   finishExercise() {
     this.setState({
@@ -274,11 +308,13 @@ class App extends Component {
   }
 
   render() {
+    // const loginButtonText = this.state.isloggedIn ? 'Logout' : 'Login';
     return (
       <div className='App'>
-        <Link to='/'>Lessons Page</Link>
-        <Link to='/register'>Sign up</Link>
-        <Link to='/login'>Login</Link>
+        <Nav
+          handleLogout={this.handleLogout}
+          isLoggedIn={this.state.isLoggedIn}
+        />
 
         <Route
           exact
@@ -292,6 +328,7 @@ class App extends Component {
             />
           )}
         />
+
         <Route
           exact
           path='/register'
@@ -387,7 +424,8 @@ class App extends Component {
           path='/exercise/:id'
           render={props => (
             <ExercisePage
-            {...props}
+              {...props}
+              onKeyPress={this.onKeyPress}
               finishExercise={this.finishExercise}
               exerciseFormData={this.state.exerciseFormData.snippet}
             />

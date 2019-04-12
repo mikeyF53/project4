@@ -13,12 +13,11 @@ const LessonDetail = props => {
         props.exercises.map(exercise => (
           <div key={exercise.id}>
             <h3>{exercise.title}</h3>
-            <input 
+            <input //make onclick to split snippet
               type='submit'
               value='Start exercise'
               onClick={() => {
-                console.log(exercise.snippet)
-                props.loadExercise(exercise.snippet)
+                props.loadExercise(exercise)
               }}
               />
 

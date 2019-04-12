@@ -1,30 +1,43 @@
-import React from 'react'
+import React from 'react';
 
-const LoginForm = (props) => {
+import { Button, Row, Form, Col } from 'react-bootstrap';
+
+const LoginForm = props => {
   return (
-    <div>
-      <h4>Login Form</h4>
-      <form onSubmit={props.handleLoginSubmit}>
-        <input
-          type='text'
-          name='email'
-          placeholder='Email..'
-          id='email'
-          onChange={props.handleChange}
-          value={props.formData.email}
-        />
-        <input
-          type='password'
-          name='password'
-          placeholder='Password..'
-          id='password'
-          onChange={props.handleChange}
-          value={props.formData.password}
-        />
-        <input type='submit' value='Submit' />
-      </form>
-    </div>
-  )
-}
+    <div className='login-box'>
+      <h4>Login</h4>
+      <Form onSubmit={props.handleLoginSubmit}>
+        <Form.Group controlId='formEmail'>
+          <Row>
+            <Col>
+              <Form.Control
+                name='email'
+                type='email'
+                placeholder='Enter email'
+                onChange={props.handleChange}
+                value={props.formData.email}
+              />
+            </Col>
+          </Row>
+        </Form.Group>
+        <Form.Group controlId='formPw'>
+          <Row>
+            <Col>
+              <Form.Control
+                name='password'
+                type='password'
+                placeholder='Password..'
+                onChange={props.handleChange}
+                value={props.formData.password}
+              />
+            </Col>
+          </Row>
+        </Form.Group>
 
-export default LoginForm
+        <Button type='submit'>Submit</Button>
+      </Form>
+    </div>
+  );
+};
+
+export default LoginForm;
