@@ -36,7 +36,7 @@ class App extends Component {
       lessons: [],
       exercises: [],
       exerciseText: [],
-
+      wrongKey: false,
       currentUser: {},
       formData: {
         name: '',
@@ -95,52 +95,26 @@ class App extends Component {
   }
   // typing box for exercise
   handleExerTextChange(e) {
-
     const { value } = e.target;
-    const { exerciseText, exerciseFormData } = this.state
+    const { exerciseText, exerciseFormData } = this.state;
     // ORIGINAL
-    const snippet = exerciseFormData.snippet
-
+    const snippet = exerciseFormData.snippet;
     // check if value.slice(-1) is equal to snippet[exerciseText.length]
-    console.log(snippet[exerciseText.length],'===', value.slice(-1))
-    
-    if (snippet[exerciseText.length] === value.slice(-1)){
+    console.log(snippet[exerciseText.length], '===', value.slice(-1));
 
-      console.log("Letters Match")
-
+    if (snippet[exerciseText.length] === value.slice(-1)) {
+      console.log('Letters Match');
+      console.log(this.state.exerciseText);
       this.setState(prevState => ({
-        exerciseText: [...prevState.exerciseText, value.slice(-1)]
+        exerciseText: [...prevState.exerciseText, value.slice(-1)],
+        wrongKey: false
       }));
-
     } else {
-      console.log("NO MATCH")
-
+      console.log(value.slice(-1));
+      console.log('NO MATCH');
     }
-    
 
-
-    console.log(exerciseText[exerciseText.length - 1], snippet[exerciseText.length - 1])
-
-    // if (exerciseText[exerciseText.length - 1] !== snippet[exerciseText.length - 1]) {
-    //   console.log('Wrong key');
-    // } 
-    // else {
-      // this.setState(prevState => ({
-      //   exerciseText: [...prevState.exerciseText, value.slice(-1)]
-      // }));
-
-      // if (exerciseText[exerciseText.length - 1] === snippet[exerciseText.length - 1]) {
-      //   console.log(exerciseText[exerciseText.length - 1]);
-      //   console.log(snippet[exerciseText.length - 1]);
-        
-        
-      //   console.log('letter matched');
-      //   console.log('code to type', snippet);
-      // }
-
-  //   }
   }
-
   async handleRegisterSubmit(e) {
     e.preventDefault();
     const newUser = await createUser(this.state.formData);
@@ -456,7 +430,7 @@ class App extends Component {
           render={props => (
             <ExercisePage
               {...props}
-              onKeyPress={this.onKeyPress}
+              wrongKey={this.state.wrongKey}
               finishExercise={this.finishExercise}
               exerciseFormData={this.state.exerciseFormData.snippet}
               exerciseText={this.state.exerciseText}

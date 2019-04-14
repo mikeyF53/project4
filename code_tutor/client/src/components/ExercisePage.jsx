@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
 const ExercisePage = props => {
+  const checkKey = props.wrongKey === false && props.exerciseText;
+  
   return (
     <div>
       <div>
@@ -9,6 +11,7 @@ const ExercisePage = props => {
 
       <div>
         <textarea
+          value={checkKey.join('')}
           onChange={props.handleExerTextChange}
           rows='8'
           cols='50'
