@@ -11,6 +11,7 @@ const ExerciseForm = props => {
           placeholder='Title'
           value={props.lessonFormData.title}
           onChange={props.handleChange}
+
         />
 
         <textarea

@@ -35,12 +35,13 @@ class App extends Component {
       users: [],
       lessons: [],
       exercises: [],
+      exerciseText: [],
 
       currentUser: {},
       formData: {
         name: '',
-        email: '',
-        password: ''
+        email: '1234@gmail.com',
+        password: '1234'
       },
       lessonFormData: {
         title: '',
@@ -70,7 +71,7 @@ class App extends Component {
     this.loadExercise = this.loadExercise.bind(this);
     this.finishExercise = this.finishExercise.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
-    this.onKeyPress = this.onKeyPress.bind(this);
+    this.handleExerTextChange = this.handleExerTextChange.bind(this);
   }
   async componentDidMount() {
     const lessons = await showLessons();
@@ -92,6 +93,54 @@ class App extends Component {
       }
     }));
   }
+  // typing box for exercise
+  handleExerTextChange(e) {
+
+    const { value } = e.target;
+    const { exerciseText, exerciseFormData } = this.state
+    // ORIGINAL
+    const snippet = exerciseFormData.snippet
+
+    // check if value.slice(-1) is equal to snippet[exerciseText.length]
+    console.log(snippet[exerciseText.length],'===', value.slice(-1))
+    
+    if (snippet[exerciseText.length] === value.slice(-1)){
+
+      console.log("Letters Match")
+
+      this.setState(prevState => ({
+        exerciseText: [...prevState.exerciseText, value.slice(-1)]
+      }));
+
+    } else {
+      console.log("NO MATCH")
+
+    }
+    
+
+
+    console.log(exerciseText[exerciseText.length - 1], snippet[exerciseText.length - 1])
+
+    // if (exerciseText[exerciseText.length - 1] !== snippet[exerciseText.length - 1]) {
+    //   console.log('Wrong key');
+    // } 
+    // else {
+      // this.setState(prevState => ({
+      //   exerciseText: [...prevState.exerciseText, value.slice(-1)]
+      // }));
+
+      // if (exerciseText[exerciseText.length - 1] === snippet[exerciseText.length - 1]) {
+      //   console.log(exerciseText[exerciseText.length - 1]);
+      //   console.log(snippet[exerciseText.length - 1]);
+        
+        
+      //   console.log('letter matched');
+      //   console.log('code to type', snippet);
+      // }
+
+  //   }
+  }
+
   async handleRegisterSubmit(e) {
     e.preventDefault();
     const newUser = await createUser(this.state.formData);
@@ -281,24 +330,7 @@ class App extends Component {
     });
     this.props.history.push(`/exercise/${exercise.id}`);
   }
-//key press listener
-  onKeyPress(e) {
-    let snippetArr = this.state.exerciseFormData.snippet;
-    let counter = 0;
-    let key = e.key;
-    console.log(key);
-    
-    if (counter == snippetArr.length) {
-      e.preventDefault();
-    } else if (key == snippetArr[counter]) {
-      counter++;
-      if (counter == snippetArr.length) {
-        console.log('Exercise Complete');
-      }
-    } else {
-      e.preventDefault();
-    }
-  }
+
   finishExercise() {
     this.setState({
       exerciseFormData: {
@@ -308,7 +340,6 @@ class App extends Component {
   }
 
   render() {
-    // const loginButtonText = this.state.isloggedIn ? 'Logout' : 'Login';
     return (
       <div className='App'>
         <Nav
@@ -428,6 +459,8 @@ class App extends Component {
               onKeyPress={this.onKeyPress}
               finishExercise={this.finishExercise}
               exerciseFormData={this.state.exerciseFormData.snippet}
+              exerciseText={this.state.exerciseText}
+              handleExerTextChange={this.handleExerTextChange}
             />
           )}
         />

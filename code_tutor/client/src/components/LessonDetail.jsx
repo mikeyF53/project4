@@ -8,10 +8,16 @@ const LessonDetail = props => {
   return (
     <div>
       <p>Lesson Details Page</p>
+      <Link to={`/lessons/${props.match.params.id}/newexercise`}>
+        <button onClick={()=>{
+          console.log(props.match.params.id);
+          
+        }}>Create an Exercise</button>
+      </Link>
 
       {props.exercises &&
         props.exercises.map(exercise => (
-          <div key={exercise.id}>
+          <div className='exercise-box' key={exercise.id}>
             <h3>{exercise.title}</h3>
             <input //make onclick to split snippet
               type='submit'
@@ -43,12 +49,7 @@ const LessonDetail = props => {
           
         ))}
 
-      <Link to={`/lessons/${props.match.params.id}/newexercise`}>
-        <button onClick={()=>{
-          console.log(props.match.params.id);
-          
-        }}>Create an Exercise</button>
-      </Link>
+
      
     </div>
   );

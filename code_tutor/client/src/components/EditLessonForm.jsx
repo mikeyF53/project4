@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-const EditLessonForm = (props) => {
+const EditLessonForm = props => {
   return (
     <div>
       <form onSubmit={props.handleEditLessonSubmit}>
@@ -20,9 +20,9 @@ const EditLessonForm = (props) => {
           value={props.lessonFormData.description}
           onChange={props.handleChange}
         />
-        <input type='submit' value='Submit'/>
+        <input type='submit' value='Submit' />
       </form>
     </div>
-  )
-}
-export default EditLessonForm
+  );
+};
+export default EditLessonForm;

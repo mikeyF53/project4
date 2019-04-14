@@ -34,3 +34,14 @@
 .login-box {
   padding: 20px 40px;
 }
+.exercise-box {
+  border: 1px solid black;
+  border-radius: 25px;
+}
+.snippet-txt {
+  border: 1px solid green;
+  background-color: black;
+  color: green;
+  width: 400px;
+  height: 400px;
+}

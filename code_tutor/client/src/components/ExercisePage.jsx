@@ -4,16 +4,16 @@ const ExercisePage = props => {
   return (
     <div>
       <div>
-        <div>{props.exerciseFormData}</div>
+        <div className='snippet-txt'>{props.exerciseFormData}</div>
       </div>
 
-      <div id='game'>
+      <div>
         <textarea
-          onChange={props.onKeyPress}
+          onChange={props.handleExerTextChange}
           rows='8'
           cols='50'
-          id='game-text'
-          class='hidden'
+          id='text-box'
+          className='hidden'
         />
         <br />
         <input

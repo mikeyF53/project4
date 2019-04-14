@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-const EditExerciseForm = (props) => {
+const EditExerciseForm = props => {
   return (
     <div>
       <h4>Edit Exercise</h4>
@@ -24,7 +24,7 @@ const EditExerciseForm = (props) => {
         <input type='Submit' />
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default EditExerciseForm
+export default EditExerciseForm;
