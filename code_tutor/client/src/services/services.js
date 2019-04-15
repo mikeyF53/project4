@@ -1,5 +1,6 @@
 const axios = require('axios');
 
+// const BASE_URL = 'https://stark-harbor-15567.herokuapp.com/';
 const BASE_URL = 'http://localhost:3000';
 
 //create user/register
@@ -68,6 +69,7 @@ const updateExercise = async data => {
     `${BASE_URL}/lessons/${data.lesson_id}/exercises/${data.exercise_id}`,
     data
   );
+  return resp.data;
 };
 
 //delete exercise

@@ -9,7 +9,7 @@ const EditExerciseForm = props => {
           type='text'
           name='title'
           placeholder='Title'
-          value={props.lessonFormData.title}
+          value={props.exerciseFormData.title}
           onChange={props.handleChange}
         />
 
@@ -17,7 +17,7 @@ const EditExerciseForm = props => {
           type='text'
           name='snippet'
           placeholder='Code Snippet'
-          value={props.lessonFormData.snippet}
+          value={props.exerciseFormData.snippet}
           onChange={props.handleChange}
         />
 

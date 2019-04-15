@@ -11,8 +11,7 @@ const LessonDetail = props => {
       
       <Link to={`/lessons/${props.match.params.id}/newexercise`}>
         <button onClick={()=>{
-          console.log(props.id);
-          
+
         }}>Create an Exercise</button>
       </Link>
 

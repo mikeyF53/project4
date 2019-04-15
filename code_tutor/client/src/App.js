@@ -32,11 +32,11 @@ class App extends Component {
     super();
     this.state = {
       isLoggedIn: false,
+      wrongKey: false,
       users: [],
       lessons: [],
       exercises: [],
       exerciseText: [],
-      wrongKey: false,
       currentUser: {},
       formData: {
         name: '',
@@ -47,13 +47,13 @@ class App extends Component {
         title: '',
         description: '',
         snippet: '',
-        lesson_id: '',
         user_id: '',
         exercise_id: ''
       },
       exerciseFormData: {
         title: '',
-        snippet: ''
+        snippet: '',
+        lesson_id: ''
       }
     };
     this.handleRegisterSubmit = this.handleRegisterSubmit.bind(this);
@@ -90,6 +90,10 @@ class App extends Component {
       lessonFormData: {
         ...prevState.lessonFormData,
         [name]: value
+      },
+      exerciseFormData: {
+        ...prevState.exerciseFormData,
+        [name]: value
       }
     }));
   }
@@ -113,9 +117,8 @@ class App extends Component {
       console.log(value.slice(-1));
       console.log('NO MATCH');
     }
-    if (exerciseText.length +1  === snippet.length){
+    if (exerciseText.length + 1 === snippet.length) {
       console.log('Exercise Complete');
-      
     }
   }
   async handleRegisterSubmit(e) {
@@ -152,7 +155,7 @@ class App extends Component {
       currentUser,
       isLoggedIn: true
     });
-    this.props.history.push('/');
+    this.props.history.push('/lessons');
   }
   handleLogout(e) {
     e.preventDefault();
@@ -161,22 +164,23 @@ class App extends Component {
     this.setState({
       isLoggedIn: false
     });
-    this.props.history.push('/login');
+    this.props.history.push('/');
   }
 
   async handleEditLessonSubmit(e) {
     e.preventDefault();
+  
     const editLesson = await updateLesson(
       this.state.lessonFormData,
       this.state.currentUser.id
     );
     this.setState(prevState => ({
       lessons: [
-        ...prevState.lessons.filter(lesson => lesson.id !== prevState.id),
+        ...prevState.lessons.filter(lesson => lesson.id !== prevState.lessons.id),
         editLesson
       ]
     }));
-    this.props.history.push(`/`);
+    this.props.history.push(`/lessons`);
     await showLessons();
     {
       window.location.reload();
@@ -246,19 +250,11 @@ class App extends Component {
     });
     this.props.history.push(`/lessons/${data.id}/edit`);
   }
-  // setExerFormData(data) {
-  //   this.setState({
-  //     title: data.title,
-  //     snippet: data.snippet,
-  //     lesson_id: data.lesson_id
-  //   });
-  //   this.props.history.push(`/lessons/${data.lesson_id}/exercise/${data.id}/edit`);
-  // }
+
   setExerFormData(data) {
     this.setState({
-      lessonFormData: {
+      exerciseFormData: {
         title: data.title,
-        description: data.description,
         snippet: data.snippet,
         lesson_id: data.lesson_id,
         exercise_id: data.id
@@ -278,17 +274,23 @@ class App extends Component {
   // Need to fix
   async handleEditExerciseSubmit(e) {
     e.preventDefault();
-    const editExercise = await updateExercise(this.state.lessonFormData);
+    const editExercise = await updateExercise(this.state.exerciseFormData);
+    
     this.setState(prevState => ({
       exercises: [
-        ...prevState.exercises.filter(exercise => exercise.id !== prevState.id),
+        ...prevState.exercises.filter(
+          exercise => exercise.id !== prevState.exerciseFormData.exercise_id
+        ),
         editExercise
       ]
     }));
-    console.log(this.state.lessonFormData);
-    
+    // cons∂le.log(this.state.exercises)
+    console.log(this.state.exerciseFormData);
+
     // const id = this.state.lessons.id
-     this.props.history.push(`/lessons/${this.state.lessonFormData.lesson_id}/details`)
+    this.props.history.push(
+      `/lessons/${this.state.exerciseFormData.lesson_id}/details`
+    );
   }
   async handleDeleteExer(lesson_id, exercise_id) {
     await deleteExercise(lesson_id, exercise_id);
@@ -327,7 +329,7 @@ class App extends Component {
 
         <Route
           exact
-          path='/'
+          path='/lessons'
           render={props => (
             <LessonPage
               lessons={this.state.lessons}
@@ -351,7 +353,7 @@ class App extends Component {
         />
         <Route
           exact
-          path='/login'
+          path='/'
           render={props => (
             <LoginForm
               handleLoginSubmit={this.handleLoginSubmit}
@@ -423,7 +425,7 @@ class App extends Component {
             <EditExerciseForm
               {...props}
               handleEditExerciseSubmit={this.handleEditExerciseSubmit}
-              lessonFormData={this.state.lessonFormData}
+              exerciseFormData={this.state.exerciseFormData}
               handleChange={this.handleChange}
             />
           )}

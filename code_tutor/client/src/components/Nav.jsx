@@ -10,10 +10,10 @@ const Nav = (props) => {
         {
           props.isLoggedIn
             ?
-            <Link to='/login' onClick={props.handleLogout}>Logout</Link>
+            <Link to='/' onClick={props.handleLogout}>Logout</Link>
             :
             <span>
-              <Link to='/login'>Login</Link> / <Link to='/register'>Register</Link>
+              <Link to='/'>Login</Link> / <Link to='/register'>Register</Link>
             </span>
         }
       </nav>
