@@ -113,7 +113,10 @@ class App extends Component {
       console.log(value.slice(-1));
       console.log('NO MATCH');
     }
-
+    if (exerciseText.length +1  === snippet.length){
+      console.log('Exercise Complete');
+      
+    }
   }
   async handleRegisterSubmit(e) {
     e.preventDefault();
@@ -276,15 +279,16 @@ class App extends Component {
   async handleEditExerciseSubmit(e) {
     e.preventDefault();
     const editExercise = await updateExercise(this.state.lessonFormData);
-
     this.setState(prevState => ({
       exercises: [
         ...prevState.exercises.filter(exercise => exercise.id !== prevState.id),
         editExercise
       ]
     }));
-    // const id = this.state.lessonFormData.lesson_id
-    //  this.props.history.push(`/lessons/${id}/details`)
+    console.log(this.state.lessonFormData);
+    
+    // const id = this.state.lessons.id
+     this.props.history.push(`/lessons/${this.state.lessonFormData.lesson_id}/details`)
   }
   async handleDeleteExer(lesson_id, exercise_id) {
     await deleteExercise(lesson_id, exercise_id);

@@ -8,9 +8,10 @@ const LessonDetail = props => {
   return (
     <div>
       <p>Lesson Details Page</p>
+      
       <Link to={`/lessons/${props.match.params.id}/newexercise`}>
         <button onClick={()=>{
-          console.log(props.match.params.id);
+          console.log(props.id);
           
         }}>Create an Exercise</button>
       </Link>
