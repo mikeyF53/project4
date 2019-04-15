@@ -46,7 +46,6 @@ class App extends Component {
       lessonFormData: {
         title: '',
         description: '',
-        snippet: '',
         user_id: '',
         exercise_id: ''
       },
@@ -140,7 +139,6 @@ class App extends Component {
       email: this.state.formData.email,
       password: this.state.formData.password
     });
-    // console.log(loginData);
     localStorage.setItem('jwt', loginData.jwt);
     this.setState({
       formData: {
@@ -169,22 +167,22 @@ class App extends Component {
 
   async handleEditLessonSubmit(e) {
     e.preventDefault();
-  
+    const { lessonFormData } = this.state;
+
     const editLesson = await updateLesson(
-      this.state.lessonFormData,
+      lessonFormData,
       this.state.currentUser.id
     );
     this.setState(prevState => ({
       lessons: [
-        ...prevState.lessons.filter(lesson => lesson.id !== prevState.lessons.id),
+        ...prevState.lessons.filter(
+          lesson => lesson.id !== prevState.lessonFormData.lesson_id
+        ),
         editLesson
       ]
     }));
+
     this.props.history.push(`/lessons`);
-    await showLessons();
-    {
-      window.location.reload();
-    }
   }
 
   async handleLessonSubmit(e) {
@@ -271,11 +269,12 @@ class App extends Component {
       lessons: prevState.lessons.filter(lesson => lesson.id !== id)
     }));
   }
-  // Need to fix
+
   async handleEditExerciseSubmit(e) {
     e.preventDefault();
-    const editExercise = await updateExercise(this.state.exerciseFormData);
-    
+    const { exerciseFormData } = this.state;
+    const editExercise = await updateExercise(exerciseFormData);
+
     this.setState(prevState => ({
       exercises: [
         ...prevState.exercises.filter(
@@ -284,13 +283,7 @@ class App extends Component {
         editExercise
       ]
     }));
-    // cons∂le.log(this.state.exercises)
-    console.log(this.state.exerciseFormData);
-
-    // const id = this.state.lessons.id
-    this.props.history.push(
-      `/lessons/${this.state.exerciseFormData.lesson_id}/details`
-    );
+    this.props.history.push(`/lessons/${exerciseFormData.lesson_id}/details`);
   }
   async handleDeleteExer(lesson_id, exercise_id) {
     await deleteExercise(lesson_id, exercise_id);
@@ -323,8 +316,10 @@ class App extends Component {
     return (
       <div className='App'>
         <Nav
+          lessons={this.state.lessons}
           handleLogout={this.handleLogout}
           isLoggedIn={this.state.isLoggedIn}
+          pathname={this.props.location.pathname}
         />
 
         <Route

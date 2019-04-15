@@ -39,9 +39,28 @@
   border-radius: 25px;
 }
 .snippet-txt {
-  border: 1px solid green;
+  border: 1px solid rgb(0, 0, 0);
   background-color: black;
   color: green;
   width: 400px;
   height: 400px;
+}
+.typing-box {
+  background: rgb(62, 62, 62);
+  color: rgb(255, 255, 255);
+  width: 400px;
+  height: 400px;
+}
+.nav-bar {
+  background: rgb(33, 37, 41);
+  padding: 20px;
+  margin: 0px 0px 25px 0px;
+}
+.exercise-container {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+nav {
+  display: flex;
+  justify-content: space-between;
 }

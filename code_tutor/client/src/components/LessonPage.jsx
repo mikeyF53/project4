@@ -14,13 +14,15 @@ class LessonPage extends Component {
     return (
       <div>
         <h2>Lessons Page</h2>
+
         <Link to='/createlesson'>
           <button>Create a Lesson</button>
         </Link>
+
         <article>
           {this.props.lessons &&
             this.props.lessons.map(lesson => (
-              <div key={lesson.id}>
+              <div className='lesson-box' key={lesson.id}>
                 <h3>Lesson: {lesson.title}</h3>
                 {/* Edit Lesson Button */}
                 <Button

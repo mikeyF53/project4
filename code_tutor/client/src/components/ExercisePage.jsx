@@ -4,7 +4,7 @@ const ExercisePage = props => {
   const checkKey = props.wrongKey === false && props.exerciseText;
   
   return (
-    <div>
+    <div className='exercise-container'>
       <div>
         <div className='snippet-txt'>{props.exerciseFormData}</div>
       </div>
@@ -13,10 +13,10 @@ const ExercisePage = props => {
         <textarea
           value={checkKey.join('')}
           onChange={props.handleExerTextChange}
-          rows='8'
-          cols='50'
+          // rows='8'
+          // cols='50'
           id='text-box'
-          className='hidden'
+          className='typing-box'
         />
         <br />
         <input
