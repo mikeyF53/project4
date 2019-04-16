@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  /* text-align: center; */
 }
 
 .App-logo {
@@ -31,9 +31,31 @@
     transform: rotate(360deg);
   }
 }
-.login-box {
-  padding: 20px 40px;
+.lesson-page-header {
+  display: inline;
 }
+
+.lesson-box {
+  padding: 5px;
+  margin: 5px 5px;
+}
+
+.login-box,
+.register-box {
+  text-align: center;
+  padding: 20px 40px;
+  margin: 0 auto;
+  border: 2px solid grey;
+  border-radius: 20px;
+  width: 50%;
+}
+
+.login-form,
+.register-form {
+  margin: 0 auto;
+  width: 75%;
+}
+
 .exercise-box {
   border: 1px solid black;
   border-radius: 25px;
@@ -59,8 +81,29 @@
 .exercise-container {
   display: grid;
   grid-template-columns: auto auto;
+  padding: 0 10px;
 }
 nav {
   display: flex;
   justify-content: space-between;
+}
+
+.create-button{
+ padding: 9px;
+}
+.title-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.lesson-page-header {
+  display: flex;
+  margin: 0 0 15px;
+  justify-content: center;
+}
+.edit-button {
+
+}
+.delete-button {
+  
 }

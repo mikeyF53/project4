@@ -1,12 +1,11 @@
 import React from 'react';
-
 import { Button, Row, Form, Col } from 'react-bootstrap';
 
 const LoginForm = props => {
   return (
     <div className='login-box'>
       <h4>Login</h4>
-      <Form onSubmit={props.handleLoginSubmit}>
+      <Form className='login-form' onSubmit={props.handleLoginSubmit}>
         <Form.Group controlId='formEmail'>
           <Row>
             <Col>

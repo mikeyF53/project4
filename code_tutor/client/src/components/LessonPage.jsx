@@ -13,47 +13,52 @@ class LessonPage extends Component {
 
     return (
       <div>
-        <h2>Lessons Page</h2>
+        <div className='lesson-page-header'>
+          <h2>Lessons Page</h2>
+          <Link className='create-button' to='/createlesson'>
+            <button>Create a Lesson</button>
+          </Link>
+        </div>
 
-        <Link to='/createlesson'>
-          <button>Create a Lesson</button>
-        </Link>
-
-        <article>
+        <article className='lesson-container'>
           {this.props.lessons &&
             this.props.lessons.map(lesson => (
               <div className='lesson-box' key={lesson.id}>
-                <h3>Lesson: {lesson.title}</h3>
-                {/* Edit Lesson Button */}
-                <Button
-                  size='sm'
-                  onClick={() => {
-                    this.props.setLessonFormData(lesson);
-                  }}
-                >
-                  Edit Lesson
-                </Button>
-                {/* Delete Lesson Button*/}
-                <Button
-                  size='sm'
-                  variant='danger'
-                  onClick={e => {
-                    e.preventDefault();
-                    this.props.handleDeleteLesson(lesson.user_id, lesson.id);
-                  }}
-                >
-                  Delete Lesson
-                </Button>
+                <div className='title-buttons'>
+                  <h3>Lesson: {lesson.title}</h3>
+                  {/* Edit Lesson Button */}
+                  <div className='edit-delete'>
+                    <img
+                    className='edit-button'
+                      src='https://img.icons8.com/material-sharp/25/000000/edit.png'
+                      onClick={() => {
+                        this.props.setLessonFormData(lesson);
+                      }}
+                    />
 
+                    {/* Delete Lesson Button*/}
+                    <img className='delete-button'
+                      src='https://img.icons8.com/color/25/000000/cancel.png'
+                      onClick={e => {
+                        e.preventDefault();
+                        this.props.handleDeleteLesson(
+                          lesson.user_id,
+                          lesson.id
+                        );
+                      }}
+                    />
+                  </div>
+                </div>
                 <p>Description: {lesson.description}</p>
                 {/* Show Exercises */}
-                <button
+                <Button
+                  size='sm'
                   onClick={() => {
                     this.props.showLessonExer(lesson);
                   }}
                 >
                   Exercises
-                </button>
+                </Button>
               </div>
             ))}
         </article>

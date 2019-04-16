@@ -202,7 +202,7 @@ class App extends Component {
         description: ''
       }
     });
-    this.props.history.push(`/`);
+    this.props.history.push(`/lessons`);
     console.log(this.state.lessons);
   }
   async handleExerciseSubmit(e) {
@@ -308,8 +308,10 @@ class App extends Component {
     this.setState({
       exerciseFormData: {
         snippet: ''
-      }
+      },
+      exerciseText: []
     });
+    
   }
 
   render() {

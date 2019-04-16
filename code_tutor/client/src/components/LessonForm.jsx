@@ -16,6 +16,7 @@ const LessonForm = props => {
         <input
           type='text'
           name='description'
+        
           placeholder='Description'
           id='description'
           value={props.lessonFormData.description}

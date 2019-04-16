@@ -21,7 +21,7 @@ const ExercisePage = props => {
         <br />
         <input
           onClick={() => {
-            this.props.finishExercise();
+            props.finishExercise();
           }}
           type='button'
           value='Complete'
