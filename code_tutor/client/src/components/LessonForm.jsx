@@ -1,30 +1,40 @@
 import React from 'react';
+import { Button, Row, Form, Col } from 'react-bootstrap';
 
 const LessonForm = props => {
   return (
-    <div>
+    <div className='new-lesson-box'>
       <h4>Create Lesson</h4>
-      <form onSubmit={props.handleLessonSubmit}>
-        <input
-          type='text'
-          name='title'
-          placeholder='Title'
-          id='title'
-          onChange={props.handleChange}
-          value={props.lessonFormData.title}
-        />
-        <input
-          type='text'
-          name='description'
-        
-          placeholder='Description'
-          id='description'
-          value={props.lessonFormData.description}
-          onChange={props.handleChange}
-        />
-        <input type='Submit' value='Submit Lesson' />
-      </form>
-      {/* onClick={props.handleSubmit} */}
+      <Form className='lesson-form' onSubmit={props.handleLessonSubmit}>
+        <Form.Group controlId='formLesson'>
+          <Row>
+            <Col>
+              <Form.Control
+                type='text'
+                name='title'
+                placeholder='Title'
+                onChange={props.handleChange}
+                value={props.lessonFormData.title}
+              />
+            </Col>
+          </Row>
+        </Form.Group>
+        <Form.Group controlId='formDescription'>
+          <Row>
+            <Col>
+              <Form.Control
+                type='text'
+                name='description'
+                placeholder='Description'
+                value={props.lessonFormData.description}
+                onChange={props.handleChange}
+              />
+            </Col>
+          </Row>
+        </Form.Group>
+
+        <Button type='Submit'>Submit</Button>
+      </Form>
     </div>
   );
 };

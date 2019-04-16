@@ -35,10 +35,10 @@
   display: inline;
 }
 
-.lesson-box, .exercise-box {
+.lesson-box,
+.exercise-box {
   padding: 5px;
   margin: 5px 5px;
-
 }
 
 .login-box,
@@ -46,13 +46,17 @@
   text-align: center;
   padding: 20px 40px;
   margin: 0 auto;
-  border: 2px solid grey;
+  border: 2px solid rgb(93, 92, 92);
   border-radius: 20px;
   width: 50%;
 }
+.new-lesson-box {
+  text-align: center;
+}
 
 .login-form,
-.register-form {
+.register-form,
+.lesson-form {
   margin: 0 auto;
   width: 75%;
 }
@@ -81,32 +85,39 @@ nav {
   justify-content: space-between;
 }
 
-.fa-plus{
+.fa-plus {
   color: #007bff;
   padding: 9px;
 }
+
 .title-buttons {
   display: flex;
-  
 }
 
-.lesson-page-header, .exercise-page-header {
+.lesson-page-header,
+.exercise-page-header {
   display: flex;
   margin: 0 0 15px;
   justify-content: center;
 }
+
 .fa-edit {
-color: rgb(33, 37, 41);
-padding: 0 5px;
+  color: rgb(33, 37, 41);
+  padding: 0 5px;
 }
+
 .fa-trash {
   color: rgb(221, 41, 41);
 }
 .edit-delete {
   margin: 7px 15px;
 }
-a, a:visited, a:hover {
+a,
+a:visited,
+a:hover {
   color: #007bff;
   text-decoration: none;
-  /* background-color: transparent; */
+}
+h4 {
+  padding: 0 0 25px 0;
 }
