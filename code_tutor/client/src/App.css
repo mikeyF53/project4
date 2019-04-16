@@ -35,7 +35,7 @@
   display: inline;
 }
 
-.lesson-box {
+.lesson-box, .exercise-box {
   padding: 5px;
   margin: 5px 5px;
 }
@@ -56,10 +56,6 @@
   width: 75%;
 }
 
-.exercise-box {
-  border: 1px solid black;
-  border-radius: 25px;
-}
 .snippet-txt {
   border: 1px solid rgb(0, 0, 0);
   background-color: black;
@@ -78,11 +74,7 @@
   padding: 20px;
   margin: 0px 0px 25px 0px;
 }
-.exercise-container {
-  display: grid;
-  grid-template-columns: auto auto;
-  padding: 0 10px;
-}
+
 nav {
   display: flex;
   justify-content: space-between;
@@ -96,7 +88,7 @@ nav {
   justify-content: space-between;
 }
 
-.lesson-page-header {
+.lesson-page-header, .exercise-page-header {
   display: flex;
   margin: 0 0 15px;
   justify-content: center;
@@ -105,5 +97,5 @@ nav {
 
 }
 .delete-button {
-  
+
 }

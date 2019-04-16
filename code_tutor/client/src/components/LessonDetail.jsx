@@ -7,45 +7,48 @@ const LessonDetail = props => {
 
   return (
     <div>
-    
-        <p>Lesson Details Page</p>
-
+      <div className='exercise-page-header'>
+        <h2>Exercises</h2>
         <Link to={`/lessons/${props.match.params.id}/newexercise`}>
           <button onClick={() => {}}>Create an Exercise</button>
         </Link>
-    
-      {props.exercises &&
-        props.exercises.map(exercise => (
-          <div className='exercise-box' key={exercise.id}>
-            <h3>{exercise.title}</h3>
-            <input //make onclick to split snippet
-              type='submit'
-              value='Start exercise'
-              onClick={() => {
-                props.loadExercise(exercise);
-              }}
-            />
-
-            <div>{exercise.snippet}</div>
-            {/* Edit exercise */}
-            <input
-              type='submit'
-              value='Edit Exercise'
-              onClick={() => {
-                props.setExerFormData(exercise);
-              }}
-            />
-            {/* Delete exercise */}
-            <input
-              type='submit'
-              value='Delete Exercise'
-              onClick={e => {
-                e.preventDefault();
-                props.handleDeleteExer(exercise.lesson_id, exercise.id);
-              }}
-            />
-          </div>
-        ))}
+      </div>
+      <article className='exercise-container'>
+        {props.exercises &&
+          props.exercises.map(exercise => (
+            <div className='exercise-box' key={exercise.id}>
+              <div className='title-buttons'>
+                <h3>{exercise.title}</h3>
+                {/* Edit exercise */}
+                <div className='edit-delete'>
+                <img
+                    className='edit-button'
+                      src='https://img.icons8.com/material-sharp/25/000000/edit.png'
+                    onClick={() => {
+                      props.setExerFormData(exercise);
+                    }}
+                  />
+                  {/* Delete exercise */}
+                  <img className='delete-button'
+                      src='https://img.icons8.com/color/25/000000/cancel.png'
+                    onClick={e => {
+                      e.preventDefault();
+                      props.handleDeleteExer(exercise.lesson_id, exercise.id);
+                    }}
+                  />
+                </div>
+              </div>
+              <div>{exercise.snippet}</div>
+              <input //make onclick to split snippet
+                type='submit'
+                value='Start exercise'
+                onClick={() => {
+                  props.loadExercise(exercise);
+                }}
+              />
+            </div>
+          ))}
+      </article>
     </div>
   );
 };
