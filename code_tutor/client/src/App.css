@@ -38,6 +38,7 @@
 .lesson-box, .exercise-box {
   padding: 5px;
   margin: 5px 5px;
+
 }
 
 .login-box,
@@ -80,12 +81,13 @@ nav {
   justify-content: space-between;
 }
 
-.create-button{
- padding: 9px;
+.fa-plus{
+  color: #007bff;
+  padding: 9px;
 }
 .title-buttons {
   display: flex;
-  justify-content: space-between;
+  
 }
 
 .lesson-page-header, .exercise-page-header {
@@ -93,9 +95,18 @@ nav {
   margin: 0 0 15px;
   justify-content: center;
 }
-.edit-button {
-
+.fa-edit {
+color: rgb(33, 37, 41);
+padding: 0 5px;
 }
-.delete-button {
-
+.fa-trash {
+  color: rgb(221, 41, 41);
+}
+.edit-delete {
+  margin: 7px 15px;
+}
+a, a:visited, a:hover {
+  color: #007bff;
+  text-decoration: none;
+  /* background-color: transparent; */
 }

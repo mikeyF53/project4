@@ -10,7 +10,7 @@ const LessonDetail = props => {
       <div className='exercise-page-header'>
         <h2>Exercises</h2>
         <Link to={`/lessons/${props.match.params.id}/newexercise`}>
-          <button onClick={() => {}}>Create an Exercise</button>
+        <i className="fas fa-plus"></i>
         </Link>
       </div>
       <article className='exercise-container'>

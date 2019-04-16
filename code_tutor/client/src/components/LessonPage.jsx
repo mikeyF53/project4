@@ -8,7 +8,7 @@ return (
         <div className='lesson-page-header'>
           <h2>Lessons</h2>
           <Link className='create-button' to='/createlesson'>
-            <button>Create a Lesson</button>
+            <i className="fas fa-plus"></i>
           </Link>
         </div>
 
@@ -20,25 +20,22 @@ return (
                   <h3>Lesson: {lesson.title}</h3>
                   {/* Edit Lesson Button */}
                   <div className='edit-delete'>
-                    <img
-                    className='edit-button'
-                      src='https://img.icons8.com/material-sharp/25/000000/edit.png'
+                    <i className="fas fa-edit"
                       onClick={() => {
                         props.setLessonFormData(lesson);
-                      }}
-                    />
+                      }}>
+                    </i>
 
                     {/* Delete Lesson Button*/}
-                    <img className='delete-button'
-                      src='https://img.icons8.com/color/25/000000/cancel.png'
+                    <i className="fas fa-trash"
                       onClick={e => {
                         e.preventDefault();
                         props.handleDeleteLesson(
                           lesson.user_id,
                           lesson.id
                         );
-                      }}
-                    />
+                      }}>
+                    </i>
                   </div>
                 </div>
                 <p>Description: {lesson.description}</p>
