@@ -9,6 +9,7 @@ import EditLessonForm from './components/EditLessonForm';
 import EditExerciseForm from './components/EditExerciseForm';
 import ExercisePage from './components/ExercisePage';
 import Nav from './components/Nav';
+import Footer from './components/Footer';
 
 import { withRouter } from 'react-router';
 import decode from 'jwt-decode';
@@ -311,7 +312,6 @@ class App extends Component {
       },
       exerciseText: []
     });
-    
   }
 
   render() {
@@ -323,7 +323,6 @@ class App extends Component {
           isLoggedIn={this.state.isLoggedIn}
           pathname={this.props.location.pathname}
         />
-        
 
         <Route
           exact
@@ -442,7 +441,8 @@ class App extends Component {
             />
           )}
         />
-        <Footer />
+
+        {/* <Footer /> */}
       </div>
     );
   }
