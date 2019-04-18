@@ -1,32 +1,26 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 const ExercisePage = props => {
   const checkKey = props.wrongKey === false && props.exerciseText;
-  
+
   return (
     <div className='exercise-container'>
-      <div>
-        <div className='snippet-txt'>{props.exerciseFormData}</div>
-      </div>
-
-      <div>
+      <div className='exercise-page-boxes'>
+        <div 
+        className='snippet-box'>{props.exerciseFormData}</div>
         <textarea
+          className='typing-box'
           value={checkKey.join('')}
           onChange={props.handleExerTextChange}
-          // rows='8'
-          // cols='50'
-          id='text-box'
-          className='typing-box'
-        />
-        <br />
-        <input
-          onClick={() => {
-            props.finishExercise();
-          }}
-          type='button'
-          value='Complete'
         />
       </div>
+      <input
+        onClick={() => {
+          props.finishExercise();
+        }}
+        type='button'
+        value='Complete'
+      />
     </div>
   );
 };

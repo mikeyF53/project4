@@ -1,28 +1,44 @@
 import React from 'react';
+import { Row, Form, Col } from 'react-bootstrap';
+
 
 const EditExerciseForm = props => {
   return (
-    <div>
+    <div className='edit-exercise-box'>
       <h4>Edit Exercise</h4>
-      <form id={props.id} onSubmit={props.handleEditExerciseSubmit}>
-        <input
-          type='text'
-          name='title'
-          placeholder='Title'
-          value={props.exerciseFormData.title}
-          onChange={props.handleChange}
-        />
-
-        <input
-          type='text'
-          name='snippet'
-          placeholder='Code Snippet'
-          value={props.exerciseFormData.snippet}
-          onChange={props.handleChange}
-        />
-
+      <Form
+        className='edit-exercise-form'
+        id={props.id}
+        onSubmit={props.handleEditExerciseSubmit}
+      >
+        <Form.Group>
+          <Row>
+            <Col>
+              <Form.Control
+                type='text'
+                name='title'
+                placeholder='Title'
+                value={props.exerciseFormData.title}
+                onChange={props.handleChange}
+              />
+            </Col>
+          </Row>
+        </Form.Group>
+        <Form.Group>
+          <Row>
+            <Col>
+              <Form.Control
+                type='text'
+                name='snippet'
+                placeholder='Code Snippet'
+                value={props.exerciseFormData.snippet}
+                onChange={props.handleChange}
+              />
+            </Col>
+          </Row>
+        </Form.Group>
         <input type='Submit' />
-      </form>
+      </Form>
     </div>
   );
 };

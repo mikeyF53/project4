@@ -21,16 +21,13 @@ const LessonDetail = props => {
                 <h3>{exercise.title}</h3>
                 {/* Edit exercise */}
                 <div className='edit-delete'>
-                <img
-                    className='edit-button'
-                      src='https://img.icons8.com/material-sharp/25/000000/edit.png'
+                <i className="fas fa-edit"
                     onClick={() => {
                       props.setExerFormData(exercise);
                     }}
                   />
                   {/* Delete exercise */}
-                  <img className='delete-button'
-                      src='https://img.icons8.com/color/25/000000/cancel.png'
+                  <i className="fas fa-trash"
                     onClick={e => {
                       e.preventDefault();
                       props.handleDeleteExer(exercise.lesson_id, exercise.id);

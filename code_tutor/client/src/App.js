@@ -323,6 +323,7 @@ class App extends Component {
           isLoggedIn={this.state.isLoggedIn}
           pathname={this.props.location.pathname}
         />
+        
 
         <Route
           exact
@@ -441,6 +442,7 @@ class App extends Component {
             />
           )}
         />
+        <Footer />
       </div>
     );
   }

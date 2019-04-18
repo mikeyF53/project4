@@ -1,29 +1,43 @@
 import React from 'react';
+import { Row, Form, Col } from 'react-bootstrap';
 
 const ExerciseForm = props => {
   return (
-    <div>
+    <div className='new-exercise-box'>
       <h4>Create New Exercise</h4>
-      <form id={props.id} onSubmit={props.handleExerciseSubmit}>
-        <input
-          type='text'
-          name='title'
-          placeholder='Title'
-          value={props.lessonFormData.title}
-          onChange={props.handleChange}
-
-        />
-
-        <textarea
-          type='text'
-          name='snippet'
-          placeholder='Code Snippet'
-          value={props.lessonFormData.snippet}
-          onChange={props.handleChange}
-        />
-
+      <Form
+        className='exercise-form'
+        id={props.id}
+        onSubmit={props.handleExerciseSubmit}
+      >
+        <Form.Group controlId='formExercise'>
+          <Row>
+            <Col>
+              <Form.Control
+                type='text'
+                name='title'
+                placeholder='Title'
+                value={props.lessonFormData.title}
+                onChange={props.handleChange}
+              />
+            </Col>
+          </Row>
+        </Form.Group>
+        <Form.Group controlId='formExercise'>
+          <Row>
+            <Col>
+              <Form.Control
+                type='text'
+                name='snippet'
+                placeholder='Paste code snippet here...'
+                value={props.lessonFormData.snippet}
+                onChange={props.handleChange}
+              />
+            </Col>
+          </Row>
+        </Form.Group>
         <input type='Submit' />
-      </form>
+      </Form>
     </div>
   );
 };

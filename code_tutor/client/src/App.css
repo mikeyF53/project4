@@ -1,7 +1,7 @@
-.App {
+/* .App {
   /* text-align: center; */
-}
-
+/* } */
+/* 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 40vmin;
@@ -17,11 +17,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
+} */
 
 @keyframes App-logo-spin {
   from {
@@ -30,7 +26,14 @@
   to {
     transform: rotate(360deg);
   }
+  
 }
+body {
+  background-image: url('https://imgur.com/NLGbv2T.jpg');
+  background-size: cover;
+  
+}
+
 .lesson-page-header {
   display: inline;
 }
@@ -43,37 +46,38 @@
 
 .login-box,
 .register-box {
+  background: rgb(131, 127, 127);
   text-align: center;
   padding: 20px 40px;
   margin: 0 auto;
   border: 2px solid rgb(93, 92, 92);
   border-radius: 20px;
-  width: 50%;
-}
-.new-lesson-box {
-  text-align: center;
+  width: 40%;
 }
 
-.login-form,
-.register-form,
-.lesson-form {
+.new-lesson-box,
+.new-exercise-box,
+.edit-lesson-box,
+.edit-exercise-box {
   margin: 0 auto;
+  text-align: center;
   width: 75%;
 }
 
-.snippet-txt {
-  border: 1px solid rgb(0, 0, 0);
-  background-color: black;
-  color: green;
-  width: 400px;
-  height: 400px;
+.login-form,
+.register-form {
+  margin: 0 auto;
+  width: 85%;
 }
-.typing-box {
-  background: rgb(62, 62, 62);
-  color: rgb(255, 255, 255);
-  width: 400px;
-  height: 400px;
+
+.lesson-form,
+.exercise-form,
+.edit-lesson-form,
+.edit-exercise-form {
+  margin: 0 auto;
+  width: 50%;
 }
+
 .nav-bar {
   background: rgb(33, 37, 41);
   padding: 20px;
@@ -120,4 +124,23 @@ a:hover {
 }
 h4 {
   padding: 0 0 25px 0;
+}
+.exercise-page-boxes {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 5px 15px 5px 5px;
+}
+.snippet-box {
+  font-size: 14px;
+  border: 1px solid rgb(0, 0, 0);
+  background-color: black;
+  color: green;
+  width: 500px;
+  height: 550px;
+}
+.typing-box {
+  background: rgb(62, 62, 62);
+  color: rgb(255, 255, 255);
+  width: 500px;
+  height: 550px;
 }
