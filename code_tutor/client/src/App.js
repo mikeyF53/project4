@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from '../node_modules/react';
 import LessonPage from './components/LessonPage';
 import LessonForm from './components/LessonForm';
 import RegisterForm from './components/RegisterForm';
@@ -11,9 +11,9 @@ import ExercisePage from './components/ExercisePage';
 import Nav from './components/Nav';
 import Footer from './components/Footer';
 
-import { withRouter } from 'react-router';
-import decode from 'jwt-decode';
-import { Route, Link } from 'react-router-dom';
+import { withRouter } from '../node_modules/react-router';
+import decode from '../node_modules/jwt-decode/lib';
+import { Route, Link } from '../node_modules/react-router-dom';
 import './App.css';
 import {
   updateExercise,
@@ -101,22 +101,15 @@ class App extends Component {
   handleExerTextChange(e) {
     const { value } = e.target;
     const { exerciseText, exerciseFormData } = this.state;
-    // ORIGINAL
+
     const snippet = exerciseFormData.snippet;
     // check if value.slice(-1) is equal to snippet[exerciseText.length]
-    console.log(snippet[exerciseText.length], '===', value.slice(-1));
-
     if (snippet[exerciseText.length] === value.slice(-1)) {
-      console.log('Letters Match');
-      console.log(this.state.exerciseText);
       this.setState(prevState => ({
         exerciseText: [...prevState.exerciseText, value.slice(-1)],
         wrongKey: false
       }));
-    } else {
-      console.log(value.slice(-1));
-      console.log('NO MATCH');
-    }
+    } 
     if (exerciseText.length + 1 === snippet.length) {
       console.log('Exercise Complete');
     }

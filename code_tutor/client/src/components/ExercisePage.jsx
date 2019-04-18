@@ -1,4 +1,4 @@
-import React from 'react';
+import React from '../../node_modules/react';
 
 const ExercisePage = props => {
   const checkKey = props.wrongKey === false && props.exerciseText;

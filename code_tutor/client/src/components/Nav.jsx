@@ -1,10 +1,9 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { withRouter } from 'react-router';
+import React from '../../node_modules/react';
+import { Link } from '../../node_modules/react-router-dom';
+import { withRouter } from '../../node_modules/react-router';
 
 const Nav = props => {
   console.log(props.pathname);
-
   return (
     <div className='nav-bar'>
       <nav>

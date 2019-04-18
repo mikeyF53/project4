@@ -1,5 +1,5 @@
-import React from 'react';
-import { Button, Row, Form, Col } from 'react-bootstrap';
+import React from '../../node_modules/react';
+import { Button, Row, Form, Col } from '../../node_modules/react-bootstrap';
 
 const RegisterForm = props => {
   return (

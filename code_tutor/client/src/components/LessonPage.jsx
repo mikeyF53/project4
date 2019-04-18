@@ -1,6 +1,6 @@
-import React from 'react';
-import { Route, Link } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
+import React from '../../node_modules/react';
+import { Route, Link } from '../../node_modules/react-router-dom';
+import { Button } from '../../node_modules/react-bootstrap';
 
 const LessonPage = props => {
 return (

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Row, Form, Col } from 'react-bootstrap';
+import React from '../../node_modules/react';
+import { Row, Form, Col } from '../../node_modules/react-bootstrap';
 
 const ExerciseForm = props => {
   return (

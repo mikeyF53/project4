@@ -15,19 +15,13 @@ This app will help instructors aide in teaching students how to code. Main objec
 ### `Technologies`
 Rails for the server side, and React on the client.
 
-### MVP/PostMVP - 5min
-
-My MVP will be an app thats able to generate a random restaurant once the zipcode has been input. After clicking submit it will display the restaurant with all the restaurant's information. Clicking on restaurants name will link it to the yelp site for more information. If user wishes there is a restaurant list at the bottom if they want to check out other restaurants nearby.
-
-In my Post MVP will incorporate the slackbot to run the app  and generate a place to eat along with a timer that will let students know when lunch is over. I will also add the google api to show where the nearby restaurants on the map.
-
-#### MVP EXAMPLE
+#### MVP
 
 - Have users register
 - Have users create lessons
 - Have users start exercise
 
-#### PostMVP EXAMPLE
+#### PostMVP 
 
 - Have users create courses
 - Have users continue an exercise
@@ -38,9 +32,21 @@ Header | Nav  | Main | Lessons Page | Lessons Creation Page | Exercise Page | Fo
 
 ## Obstacles
 
+I had some issues trying to match each key press to the code snippet, also to have the typing input to not type when you press and incorrect key. 
 
 ## Solution
 
+I used if else to compare the last value of the input box and compared that to the code snippets array index of the length of the array of my input .
 
 ## Code Snip
  
+"if (snippet[exerciseText.length] === value.slice(-1)) {
+      this.setState(prevState => ({
+        exerciseText: [...prevState.exerciseText, value.slice(-1)],
+        wrongKey: false
+      }));
+    } 
+    if (exerciseText.length + 1 === snippet.length) {
+    
+    }
+  }"
