@@ -142,7 +142,7 @@ class App extends Component {
       // isLoggedIn: true
     });
     const currentUser = decode(loginData.jwt);
-    // localStorage.setItem('user_id', currentUser.id);
+    localStorage.setItem('user_id', currentUser.id);
     this.setState({
       currentUser,
       isLoggedIn: true
