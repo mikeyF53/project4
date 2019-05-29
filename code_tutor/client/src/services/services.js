@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const BASE_URL = 'http://stark-harbor-15567.herokuapp.com';
+const BASE_URL = 'https://stark-harbor-15567.herokuapp.com';
 //const BASE_URL = 'http://localhost:3000';
 
 //create user/register
