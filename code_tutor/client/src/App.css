@@ -1,13 +1,9 @@
 .App {
   text-align: center;
-  height: auto;
+  height: 100%;
+  /* border: 1px solid red; */
 }
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
+/* 
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -17,7 +13,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-} 
+} */
 
 @keyframes App-logo-spin {
   from {
@@ -26,7 +22,6 @@
   to {
     transform: rotate(360deg);
   }
-  
 }
 /* body {
   background-image: url('https://imgur.com/NLGbv2T.jpg');
@@ -81,13 +76,12 @@
 
 .nav-bar {
   background: rgb(33, 37, 41);
-  padding: 20px;
+  padding: 15px;
   margin: 0px 0px 10px 0px;
 }
 .logo {
   color: #007bff;
-  font-size: 35px;
-  
+  font-size: 25px;
 }
 nav {
   display: flex;
@@ -151,7 +145,10 @@ h4 {
   height: 550px;
 }
 .footer {
-  height: 60px;
-  background: black;
+  height: 5vh;
+  background: rgb(33, 37, 41);
   color: #007bff;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
 }

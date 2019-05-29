@@ -4,15 +4,16 @@ import { Button } from '../../node_modules/react-bootstrap';
 
 const LessonPage = props => {
 return (
-      <div>
+      <div className='lesson-page'>
+        {/*Lessons title with plus sign */}
         <div className='lesson-page-header'>
           <h2>Lessons</h2>
           <Link className='create-button' to='/createlesson'>
             <i className="fas fa-plus"></i>
           </Link>
         </div>
-
-        <article className='lesson-container'>
+          {/* Each lesson group */}
+        <div className='lesson-container'>
           {props.lessons &&
             props.lessons.map(lesson => (
               <div className='lesson-box' key={lesson.id}>
@@ -50,7 +51,7 @@ return (
                 </Button>
               </div>
             ))}
-        </article>
+        </div>
       </div>
     );
   }

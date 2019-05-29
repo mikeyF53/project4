@@ -28,7 +28,8 @@ const EditExerciseForm = props => {
           <Row>
             <Col>
               <Form.Control
-                type='text'
+                as='textarea'
+                rows='5'
                 name='snippet'
                 placeholder='Code Snippet'
                 value={props.exerciseFormData.snippet}

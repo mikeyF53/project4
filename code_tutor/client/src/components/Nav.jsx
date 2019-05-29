@@ -7,7 +7,7 @@ const Nav = props => {
   return (
     <div className='nav-bar'>
       <nav>
-        {props.pathname === '/lessons' ? <p className='logo'></p> : (
+        {props.pathname === '/lessons' ? <strong className='logo'>CodeTutor</strong> : (
           <a
             href='#'
             onClick={() => {

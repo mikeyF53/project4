@@ -27,7 +27,8 @@ const ExerciseForm = props => {
           <Row>
             <Col>
               <Form.Control
-                type='text'
+                as='textarea'
+                rows='5'
                 name='snippet'
                 placeholder='Paste code snippet here...'
                 value={props.lessonFormData.snippet}

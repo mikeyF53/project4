@@ -434,8 +434,7 @@ class App extends Component {
             />
           )}
         />
-
-        {/* <Footer /> */}
+        <Footer />
       </div>
     );
   }

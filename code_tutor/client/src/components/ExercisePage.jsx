@@ -14,13 +14,13 @@ const ExercisePage = props => {
           onChange={props.handleExerTextChange}
         />
       </div>
-      <input
+      {/* <input
         onClick={() => {
           props.finishExercise();
         }}
         type='button'
         value='Complete'
-      />
+      /> */}
     </div>
   );
 };
